@@ -2,7 +2,7 @@ export const Loader = () => {
   return (
     <div className="flex-center w-full">
       <img
-        src="src/assets/icons/loader.svg"
+        src="public/assets/icons/loader.svg"
         alt="loader"
         width={20}
         height={20}
