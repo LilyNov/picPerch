@@ -52,7 +52,7 @@ export const SignUpForm = () => {
       <div className="sm:w-420 flex-center flex-col">
         <div className="flex-center">
           <img
-            src="src/assets/icons/camera.svg"
+            src="public/assets/icons/camera.svg"
             alt="camera"
             className="w-10 mr-2"
           />{" "}
