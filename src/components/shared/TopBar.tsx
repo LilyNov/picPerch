@@ -29,7 +29,11 @@ export const TopBar = () => {
           </Button>
           <Link to={`/profile/${user.id}`} className=" flex-center gap-3">
             {user?.imageUrl ? (
-              <img src={user.imageUrl} className="h-8 w-8 rounded-full" />
+              <img
+                src={user.imageUrl}
+                alt="profile image"
+                className="h-8 w-8 rounded-full"
+              />
             ) : (
               "U"
             )}

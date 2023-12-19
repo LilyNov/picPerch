@@ -29,7 +29,7 @@ export const SignInForm = () => {
 
   const { mutateAsync: signInAccount, isPending } = useSignInAccount();
 
-  // 1. Define the form
+  // define the form
   const form = useForm<z.infer<typeof SigInpValidationSchema>>({
     resolver: zodResolver(SigInpValidationSchema),
     defaultValues: {
@@ -38,24 +38,26 @@ export const SignInForm = () => {
     },
   });
 
-  // 2. Define the submit handler
-  const onSubmit = async (values: z.infer<typeof SigInpValidationSchema>) => {
-    const session = signInAccount({
-      email: values.email,
-      password: values.password,
-    });
+  //  submit handler
+  const onSubmit = async (user: z.infer<typeof SigInpValidationSchema>) => {
+    const session = await signInAccount(user);
 
     if (!session) {
-      return toast({ title: "Sign in failed. Please try again" });
+      toast({ title: "Login failed. Please try again." });
+
+      return;
     }
 
+    // if session then check user  authentication
     const isLoggedIn = await checkAuthUser();
 
     if (isLoggedIn) {
       form.reset();
       navigate("/");
     } else {
-      return toast({ title: "Sign up failed. Please try again" });
+      toast({ title: "Login failed. Please try again." });
+
+      return;
     }
   };
 
@@ -104,7 +106,7 @@ export const SignInForm = () => {
           />
 
           <Button type="submit" className="shad-button_primary mt-4">
-            {isPending ? (
+            {isPending || isUserLoading ? (
               <div className="flex-center gap-2">
                 <Loader />
                 Loading...

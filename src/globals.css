@@ -243,11 +243,11 @@
   }
 
   /* Left sidebar */
-  .leftsidebar {
+  .left-sidebar {
     @apply hidden md:flex px-6 py-10 flex-col justify-between min-w-[270px] bg-dark-2;
   }
 
-  .leftsidebar-link {
+  .left-sidebar-link {
     @apply rounded-lg base-medium hover:bg-primary-500 transition;
   }
 
@@ -262,7 +262,7 @@
 
   /* TopBar */
   .top-bar {
-    @apply sticky top-0 z-50 md:hidden bg-dark-1 w-full;
+    @apply sticky top-0 z-50 md:hidden bg-dark-2 w-full;
   }
 
   /* User card */

@@ -1,7 +1,8 @@
+import { useNavigate } from "react-router-dom";
+import { createContext, useContext, useEffect, useState } from "react";
+
 import { getCurrentUser } from "@/lib/appwrite/api";
 import { IContextType, IUser } from "@/types/types";
-import React, { createContext, useContext, useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
 
 export const INITIAL_USER = {
   id: "",
@@ -15,25 +16,24 @@ export const INITIAL_USER = {
 const INITIAL_STATE = {
   user: INITIAL_USER,
   isLoading: false,
-  isAuth: false,
+  isAuthenticated: false,
   setUser: () => {},
-  setIsAuth: () => {},
+  setIsAuthenticated: () => {},
   checkAuthUser: async () => false as boolean,
 };
 
 const AuthContext = createContext<IContextType>(INITIAL_STATE);
 
 export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
-  const [user, setUser] = useState<IUser>(INITIAL_USER);
-  const [isLoading, setIsLoading] = useState(false);
-  const [isAuth, setIsAuth] = useState(false);
-
   const navigate = useNavigate();
+  const [user, setUser] = useState<IUser>(INITIAL_USER);
+  const [isAuthenticated, setIsAuthenticated] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
 
   const checkAuthUser = async () => {
+    setIsLoading(true);
     try {
       const currentAccount = await getCurrentUser();
-      console.log(currentAccount);
 
       if (currentAccount) {
         setUser({
@@ -45,16 +45,14 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
           bio: currentAccount.bio,
         });
 
-        setIsAuth(true);
+        setIsAuthenticated(true);
 
-        // has User account data
         return true;
       }
 
-      // doesn't have User account data
       return false;
     } catch (error) {
-      console.log(error);
+      console.error(error);
       return false;
     } finally {
       setIsLoading(false);
@@ -67,8 +65,9 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
       cookieFallback === "[]" ||
       cookieFallback === null ||
       cookieFallback === undefined
-    )
+    ) {
       navigate("/sign-in");
+    }
 
     checkAuthUser();
   }, []);
@@ -77,8 +76,8 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
     user,
     setUser,
     isLoading,
-    isAuth,
-    setIsAuth,
+    isAuthenticated,
+    setIsAuthenticated,
     checkAuthUser,
   };
 

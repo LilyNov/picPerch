@@ -5,7 +5,7 @@ import { BottomBar } from "@/components/shared/BottomBar";
 
 export const RootLayout = () => {
   return (
-    <div className=" w-full m:flex">
+    <div className=" w-full md:flex">
       <TopBar />
       <LeftSidebar />
 
