@@ -53,7 +53,7 @@ export const saveUserToDB = async (user: {
   }
 };
 
-// sig in Account for user in the DB
+// sig in Account (+ add user for user in the DB)
 export const signInAccount = async (user: {
   email: string;
   password: string;
@@ -67,9 +67,22 @@ export const signInAccount = async (user: {
   }
 };
 
+// sign out
+
+export const signOutAccount = async () => {
+  try {
+    // provided by appwrite lib
+    const session = await account.deleteSession("current");
+
+    return session;
+  } catch (error) {
+    console.log(error);
+  }
+};
+
 // for checkAuthUser (AuthContext)
 
-// ============================== GET ACCOUNT
+// GET account
 export async function getAccount() {
   try {
     const currentAccount = await account.get();
@@ -80,6 +93,7 @@ export async function getAccount() {
   }
 }
 
+// check current user
 export const getCurrentUser = async () => {
   try {
     const currentAccount = await getAccount();

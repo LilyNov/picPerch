@@ -17,7 +17,7 @@ import { Input } from "@/components/ui/input";
 
 import { Button } from "@/components/ui/button";
 import { SignUpValidationSchema } from "@/lib/validation/validation";
-import { Loader } from "@/components/ui/shared/Loader";
+import { Loader } from "@/components/shared/Loader";
 import {
   useCreateUserAccount,
   useSignInAccount,
@@ -76,11 +76,7 @@ export const SignUpForm = () => {
     <Form {...form}>
       <div className="sm:w-420 flex-center flex-col">
         <div className="flex-center">
-          <img
-            src="public/assets/icons/camera.svg"
-            alt="camera"
-            className="w-10 mr-2"
-          />{" "}
+          <img src="/assets/icons/logo.svg" alt="logo" className="w-10 mr-2" />{" "}
           <span className="text-3xl">PicPerch</span>
         </div>
         <h2 className="h3-bold md:h2-bold pt-5 sm:pt-12">

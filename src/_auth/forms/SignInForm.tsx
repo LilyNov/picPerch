@@ -17,7 +17,7 @@ import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 
 import { SigInpValidationSchema } from "@/lib/validation/validation";
-import { Loader } from "@/components/ui/shared/Loader";
+import { Loader } from "@/components/shared/Loader";
 import { useSignInAccount } from "@/lib/react-query/queriesAndMutations";
 import { useUserContext } from "@/context/AuthContext";
 
@@ -27,7 +27,7 @@ export const SignInForm = () => {
 
   const { checkAuthUser, isLoading: isUserLoading } = useUserContext();
 
-  const { mutateAsync: signInAccount } = useSignInAccount();
+  const { mutateAsync: signInAccount, isPending } = useSignInAccount();
 
   // 1. Define the form
   const form = useForm<z.infer<typeof SigInpValidationSchema>>({
@@ -63,11 +63,7 @@ export const SignInForm = () => {
     <Form {...form}>
       <div className="sm:w-420 flex-center flex-col">
         <div className="flex-center">
-          <img
-            src="public/assets/icons/camera.svg"
-            alt="camera"
-            className="w-10 mr-2"
-          />{" "}
+          <img src="/assets/icons/logo.svg" alt="logo" className="w-10 mr-2" />
           <span className="text-3xl">PicPerch</span>
         </div>
         <h2 className="h3-bold md:h2-bold pt-5 sm:pt-12">
@@ -108,7 +104,7 @@ export const SignInForm = () => {
           />
 
           <Button type="submit" className="shad-button_primary mt-4">
-            {isUserLoading ? (
+            {isPending ? (
               <div className="flex-center gap-2">
                 <Loader />
                 Loading...

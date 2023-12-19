@@ -260,9 +260,9 @@
     @apply h-64 xs:h-[400px] lg:h-[450px] w-full rounded-[24px] object-cover mb-5;
   }
 
-  /* Topbar */
-  .topbar {
-    @apply sticky top-0 z-50 md:hidden bg-dark-2 w-full;
+  /* TopBar */
+  .top-bar {
+    @apply sticky top-0 z-50 md:hidden bg-dark-1 w-full;
   }
 
   /* User card */
@@ -272,7 +272,7 @@
 }
 
 @layer components {
-  /* SHADCN COMPONENTS */
+  /* SHAD CN COMPONENTS */
   /* Form */
   .shad-form_label {
     @apply text-white !important;

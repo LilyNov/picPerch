@@ -33,6 +33,7 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
   const checkAuthUser = async () => {
     try {
       const currentAccount = await getCurrentUser();
+      console.log(currentAccount);
 
       if (currentAccount) {
         setUser({
@@ -61,9 +62,11 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
   };
 
   useEffect(() => {
+    const cookieFallback = localStorage.getItem("cookieFallback");
     if (
-      localStorage.getItem("cookieFallback") === "[]" ||
-      localStorage.getItem("cookieFallback") === null
+      cookieFallback === "[]" ||
+      cookieFallback === null ||
+      cookieFallback === undefined
     )
       navigate("/sign-in");
 
