@@ -2,26 +2,27 @@ import React from "react";
 import { NavLink } from "react-router-dom";
 
 import { INavLink } from "@/types/types";
-import { sidebarLinks } from "@/constants/constants";
 import { MenuLinksProps } from "./menuLinks.types";
 import { checkIsActive } from "@/helpers/helpers";
 
-export const MenuLinks: React.FC<MenuLinksProps> = ({ pathname }) => {
+export const MenuLinks: React.FC<MenuLinksProps> = (props) => {
+  const { links, pathname, itemClassName, linkClassName, imgWidth } = props;
+
   return (
     <>
-      {sidebarLinks.map((link: INavLink) => (
+      {links.map((link: INavLink) => (
         <li
           key={link.label}
-          className={`left-sidebar-link group ${
+          className={`${itemClassName} group ${
             checkIsActive(link.route, pathname) && "bg-primary-500"
           }`}>
-          <NavLink to={link.route} className="flex gap-4 items-center p-4">
+          <NavLink to={link.route} className={linkClassName}>
             <img
               src={link.imgURL}
               alt={link.label}
               className={`group-hover:invert-white ${
                 checkIsActive(link.route, pathname) && "invert-white"
-              } w-6`}
+              } ${imgWidth}`}
             />
             {link.label}
           </NavLink>

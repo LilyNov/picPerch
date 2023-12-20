@@ -5,6 +5,7 @@ import { useSignOutAccount } from "@/lib/react-query/queriesAndMutations";
 import { Button } from "../ui/button";
 import { MenuLinks } from "./MenuLinks";
 import { Logo } from "./Logo";
+import { sidebarLinks } from "@/constants/constants";
 
 export const LeftSidebar = () => {
   const navigate = useNavigate();
@@ -40,7 +41,13 @@ export const LeftSidebar = () => {
         </Link>
 
         <ul className="flex flex-col gap-6">
-          <MenuLinks pathname={pathname} />
+          <MenuLinks
+            pathname={pathname}
+            links={sidebarLinks}
+            itemClassName="left-sidebar-link"
+            linkClassName="flex gap-4 items-center p-4"
+            imgWidth="w-6"
+          />
         </ul>
       </div>
       <Button
