@@ -6,6 +6,7 @@ import { BottomBar } from "@/components/shared/BottomBar";
 export const RootLayout = () => {
   return (
     <div className=" w-full md:flex">
+      {/* TopBar,  BottomBar for mobile view*/}
       <TopBar />
       <LeftSidebar />
 

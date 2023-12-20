@@ -7,3 +7,4 @@ export { EditPost } from "./EditPost";
 export { PostDetails } from "./PostDetails";
 export { Profile } from "./Profile";
 export { UpdateProfile } from "./UpdateProfile";
+export { LikedPosts } from "./LikedPosts";

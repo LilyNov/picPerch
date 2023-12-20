@@ -23,6 +23,7 @@ import {
   useSignInAccount,
 } from "@/lib/react-query/queriesAndMutations";
 import { useUserContext } from "@/context/AuthContext";
+import { Logo } from "@/components/shared/Logo";
 
 export const SignUpForm = () => {
   const { toast } = useToast();
@@ -76,8 +77,7 @@ export const SignUpForm = () => {
     <Form {...form}>
       <div className="sm:w-420 flex-center flex-col">
         <div className="flex-center">
-          <img src="/assets/icons/logo.svg" alt="logo" className="w-10 mr-2" />{" "}
-          <span className="text-3xl">PicPerch</span>
+          <Logo imgStyles="w-10 mr-2" textSize="text-3xl" />
         </div>
         <h2 className="h3-bold md:h2-bold pt-5 sm:pt-12">
           Create a new account

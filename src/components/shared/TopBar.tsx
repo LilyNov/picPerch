@@ -3,6 +3,7 @@ import { Button } from "../ui/button";
 import { useSignOutAccount } from "@/lib/react-query/queriesAndMutations";
 import { useEffect } from "react";
 import { useUserContext } from "@/context/AuthContext";
+import { Logo } from "./Logo";
 
 export const TopBar = () => {
   const navigate = useNavigate();
@@ -17,9 +18,9 @@ export const TopBar = () => {
     <section className="top-bar">
       <div className="flex-between py-4 px-5">
         <Link to="/" className="flex gap-3 items-center">
-          <img src="/assets/icons/logo.svg" alt="logo" width={40} />
-          <span className="text-2xl">PicPerch</span>
+          <Logo imgStyles="w-8" textSize="text-2xl" />
         </Link>
+
         <div className="flex gap-4">
           <Button
             variant="ghost"
