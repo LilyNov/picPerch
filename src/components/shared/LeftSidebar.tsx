@@ -36,7 +36,7 @@ export const LeftSidebar = () => {
           )}
           <div className="flex flex-col w-full">
             <p className="body-bold">{user.name}</p>
-            <p className="small-regular text-light-3">@{user.name}</p>
+            <p className="small-regular text-off-white">@{user.name}</p>
           </div>
         </Link>
 

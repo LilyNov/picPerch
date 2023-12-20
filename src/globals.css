@@ -134,7 +134,7 @@
   }
 
   .common-container {
-    @apply flex flex-col flex-1 items-center gap-10 overflow-scroll py-10 px-5 md:px-8 lg:p-14 custom-scrollbar;
+    @apply flex flex-col flex-1 items-center gap-10 overflow-scroll py-10 px-5 md:px-8 lg:p-14;
   }
 
   /* All Users */
@@ -287,11 +287,11 @@
   }
 
   .shad-input {
-    @apply h-12 bg-light-5 border-none placeholder:text-light-4 focus-visible:ring-1 focus-visible:ring-offset-1 ring-offset-light-3 !important;
+    @apply h-12 bg-light-5 border-none placeholder:text-off-white focus-visible:ring-1 focus-visible:ring-offset-1 ring-offset-light-3 !important;
   }
 
   .shad-textarea {
-    @apply h-36 bg-dark-3 rounded-xl border-none focus-visible:ring-1 focus-visible:ring-offset-1 ring-offset-light-3 !important;
+    @apply h-36 bg-light-5 rounded-xl border-none focus-visible:ring-1 placeholder:text-off-white focus-visible:ring-offset-1 ring-offset-light-3 !important;
   }
 
   /* Button */
@@ -299,8 +299,8 @@
     @apply bg-primary-500 hover:bg-primary-500 text-light-1 flex gap-2 !important;
   }
 
-  .shad-button_dark_4 {
-    @apply h-12 bg-dark-4 px-5 text-light-1 flex gap-2 !important;
+  .shad-button_light-2 {
+    @apply h-10 bg-light-2 px-5 text-dark-3  flex gap-2 !important;
   }
 
   .shad-button_ghost {
@@ -310,6 +310,6 @@
 
 @layer base {
   body {
-    @apply text-white min-h-screen font-inter bg-dark-1;
+    @apply text-white min-h-screen font-inter bg-dark-2;
   }
 }
