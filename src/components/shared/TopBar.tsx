@@ -20,7 +20,6 @@ export const TopBar = () => {
         <Link to="/" className="flex gap-3 items-center">
           <Logo imgStyles="w-8" textSize="text-2xl" />
         </Link>
-
         <div className="flex gap-4">
           <Button
             variant="ghost"
@@ -36,7 +35,7 @@ export const TopBar = () => {
                 className="h-8 w-8 rounded-full"
               />
             ) : (
-              "U"
+              <span className="material-symbols-outlined">account_circle</span>
             )}
           </Link>
         </div>

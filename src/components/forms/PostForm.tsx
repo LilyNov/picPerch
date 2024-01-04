@@ -16,17 +16,20 @@ import {
 import { Input } from "@/components/ui/input";
 import { PostFormValidationSchema } from "@/lib/validation/validation";
 import { Textarea } from "../ui/textarea";
-import { FileUploader } from "../shared/FileUploader";
+import { FileUploader } from "../shared/FileUploader/FileUploader";
+import { PostFormProps } from "./postForm.types";
 
-export const PostForm = () => {
+export const PostForm: React.FC<PostFormProps> = ({ post }) => {
   // 1. Define your form.
   const form = useForm<z.infer<typeof PostFormValidationSchema>>({
+    mode: "onSubmit",
+    reValidateMode: "onChange",
     resolver: zodResolver(PostFormValidationSchema),
     defaultValues: {
-      caption: "",
-      file: "",
-      location: "",
-      tags: "",
+      caption: post ? post?.caption : "",
+      file: [],
+      location: post ? post?.location : "",
+      tags: post ? post?.tags.join(",") : "",
     },
   });
 
@@ -62,11 +65,14 @@ export const PostForm = () => {
         <FormField
           control={form.control}
           name="file"
-          render={() => (
+          render={({ field }) => (
             <FormItem>
               <FormLabel className="shad-form_label">Add photos</FormLabel>
               <FormControl>
-                <FileUploader />
+                <FileUploader
+                  fieldChange={field.onChange}
+                  mediaUrl={post?.imageUrl}
+                />
               </FormControl>
 
               <FormMessage className="shad-form_message" />
@@ -112,12 +118,12 @@ export const PostForm = () => {
           )}
         />
         <div className="flex gap-10 items-center justify-center">
-          <Button type="button" className="shad-button_light-2 w-48">
+          <Button type="button" className="shad-button_light-2 w-1/2">
             Cancel
           </Button>
           <Button
             type="submit"
-            className="shad-button_primary whitespace-nowrap w-48">
+            className="shad-button_primary whitespace-nowrap w-1/2">
             Create
           </Button>
         </div>

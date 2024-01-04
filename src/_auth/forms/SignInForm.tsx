@@ -71,7 +71,7 @@ export const SignInForm = () => {
         <h2 className="h3-bold md:h2-bold pt-5 sm:pt-12">
           Log in to your account
         </h2>
-        <p className="text-off-white small-medium md:base-regular mt-2">
+        <p className="text-light-2 small-medium md:base-regular mt-2">
           Welcome back! Please enter your details
         </p>
 
@@ -120,7 +120,7 @@ export const SignInForm = () => {
             <Link
               to="/sign-up"
               className=" text-primary-500 text-small-semibold underline ml-1">
-              Sign in
+              Sign up
             </Link>
           </p>
         </form>

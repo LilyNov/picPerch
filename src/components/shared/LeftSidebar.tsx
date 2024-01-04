@@ -19,24 +19,31 @@ export const LeftSidebar = () => {
 
   return (
     <nav className="left-sidebar">
-      <div className="flex flex-col gap-11">
+      <div className="flex flex-col gap-6">
         <Link to="/" className="flex gap-3 items-center">
           <Logo imgStyles="w-8" textSize="text-2xl" />
         </Link>
+        <div className="divide-line" />
 
-        <Link to={`/profile/${user.id}`} className=" flex-center gap-3">
+        <Link to={`/profile/${user?.id}`} className=" flex-center gap-3">
           {user?.imageUrl ? (
             <img
-              src={user.imageUrl}
+              src={user?.imageUrl}
               alt="profile image"
               className="h-8 w-8 rounded-full"
             />
           ) : (
-            "U"
+            <span className="material-symbols-outlined">account_circle</span>
           )}
           <div className="flex flex-col w-full">
-            <p className="body-bold">{user.name}</p>
-            <p className="small-regular text-off-white">@{user.name}</p>
+            {user?.name ? (
+              <>
+                <p className="body-bold">{user.name}</p>
+                <p className="small-regular text-light-2">@{user.name}</p>
+              </>
+            ) : (
+              "-"
+            )}
           </div>
         </Link>
 

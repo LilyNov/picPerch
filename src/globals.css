@@ -156,7 +156,7 @@
   }
 
   .explore-search {
-    @apply h-12 bg-dark-4 border-none placeholder:text-light-4 focus-visible:ring-0 focus-visible:ring-offset-0 ring-offset-0 !important;
+    @apply h-12 bg-dark-4 border-none placeholder:text-light-3 focus-visible:ring-0 focus-visible:ring-offset-0 ring-offset-0 !important;
   }
 
   /* Home */
@@ -213,7 +213,7 @@
 
   /* Bottom bar */
   .bottom-bar {
-    @apply z-50 flex-between w-full sticky bottom-0 rounded-t-[20px] bg-dark-2 px-5 py-4 md:hidden;
+    @apply z-50 flex-between w-full sticky bottom-0 rounded-t-[20px] bg-white px-5 py-4 md:hidden;
   }
 
   .bottom-bar-link {
@@ -221,16 +221,20 @@
   }
 
   /* File uploader */
+  .drop-zone-root {
+    @apply flex flex-center flex-col rounded-xl cursor-pointer;
+  }
+
   .file_uploader-img {
     @apply h-80 lg:h-[480px] w-full rounded-[24px] object-cover object-top;
   }
 
   .file_uploader-label {
-    @apply text-light-4 text-center small-regular w-full p-4 border-t border-t-dark-4;
+    @apply text-light-3 text-center text-sm w-full p-4 border-t border-t-light-2;
   }
 
   .file_uploader-box {
-    @apply flex-center flex-col p-7 h-80 lg:h-[612px];
+    @apply flex-center flex-col p-7 h-80 lg:h-[412px];
   }
 
   /* Grid Post List */
@@ -248,11 +252,15 @@
 
   /* Left sidebar */
   .left-sidebar {
-    @apply hidden md:flex px-6 py-10 flex-col justify-between min-w-[270px] bg-dark-2;
+    @apply hidden md:flex px-6 py-10 flex-col justify-between min-w-[270px] bg-off-white;
   }
 
   .left-sidebar-link {
     @apply rounded-lg base-medium hover:bg-primary-500 transition cursor-pointer;
+  }
+
+  .divide-line {
+    @apply w-full border border-t border-t-light-2;
   }
 
   /* Post Card */
@@ -266,7 +274,7 @@
 
   /* TopBar */
   .top-bar {
-    @apply sticky top-0 z-50 md:hidden bg-dark-2 w-full;
+    @apply sticky top-0 z-50 md:hidden bg-off-white w-full;
   }
 
   /* User card */
@@ -279,7 +287,7 @@
   /* SHAD CN COMPONENTS */
   /* Form */
   .shad-form_label {
-    @apply text-white !important;
+    @apply text-dark-1 !important;
   }
 
   .shad-form_message {
@@ -287,29 +295,29 @@
   }
 
   .shad-input {
-    @apply h-12 bg-light-5 border-none placeholder:text-off-white focus-visible:ring-1 focus-visible:ring-offset-1 ring-offset-light-3 !important;
+    @apply h-12 bg-off-white border-none placeholder:text-light-2 focus-visible:ring-1 focus-visible:ring-offset-1 ring-offset-light-3 !important;
   }
 
   .shad-textarea {
-    @apply h-36 bg-light-5 rounded-xl border-none focus-visible:ring-1 placeholder:text-off-white focus-visible:ring-offset-1 ring-offset-light-3 !important;
+    @apply h-36 bg-off-white rounded-xl border-none focus-visible:ring-1 placeholder:text-light-2 focus-visible:ring-offset-1 ring-offset-off-white !important;
   }
 
   /* Button */
   .shad-button_primary {
-    @apply bg-primary-500 hover:bg-primary-500 text-light-1 flex gap-2 !important;
+    @apply bg-primary-600 hover:bg-primary-500 text-light-1 flex gap-2 !important;
   }
 
   .shad-button_light-2 {
-    @apply h-10 bg-light-2 px-5 text-dark-3  flex gap-2 !important;
+    @apply h-10 bg-light-2 px-5 text-off-white  flex gap-2 !important;
   }
 
   .shad-button_ghost {
-    @apply flex gap-4 items-center justify-start hover:bg-transparent hover:text-white !important;
+    @apply flex gap-4 items-center justify-start hover:bg-transparent hover:text-primary-600 !important;
   }
 }
 
 @layer base {
   body {
-    @apply text-white min-h-screen font-inter bg-dark-2;
+    @apply text-dark-1 min-h-screen font-inter bg-light-1;
   }
 }

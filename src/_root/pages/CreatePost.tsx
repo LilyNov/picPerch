@@ -9,7 +9,7 @@ export const CreatePost = () => {
           <img
             src="/assets/icons/post-add.svg"
             alt="add post"
-            className="w-9 invert-white"
+            className="w-9"
           />
           <h2 className="h3-bold md:h2-bold text-left w-full">Create Post</h2>
         </div>

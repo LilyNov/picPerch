@@ -22,10 +22,10 @@ export const SigInpValidationSchema = z.object({
 
 // Create Post
 export const PostFormValidationSchema = z.object({
-  caption: z.string().min(2).max(2200, {
+  caption: z.string().min(5).max(2200, {
     message: "Maximum 2200 characters.",
   }),
-  file: z.string().min(2).max(30),
-  location: z.string().min(2).max(30),
-  tags: z.string().min(2).max(30),
+  file: z.custom<File[]>(),
+  location: z.string().min(2).max(1000),
+  tags: z.string(),
 });
