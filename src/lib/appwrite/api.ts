@@ -115,9 +115,9 @@ export const getCurrentUser = async () => {
   }
 };
 
-// ----------- POST---------------
+// ----------- POSTS---------------
 
-// CREATE POST
+// * CREATE POST
 export const createPost = async (post: INewPost) => {
   try {
     // Upload file to appwrite storage
@@ -208,4 +208,18 @@ export const deleteFile = async (fileId: string) => {
   } catch (error) {
     console.log(error);
   }
+};
+
+// * GET POSTS
+
+export const getRecentPosts = async () => {
+  const posts = await databases.listDocuments(
+    appwriteConfig.databaseId,
+    appwriteConfig.postCollectionId,
+    [Query.orderDesc("$createAt"), Query.limit(20)]
+  );
+
+  if (!posts) throw Error;
+
+  return posts;
 };

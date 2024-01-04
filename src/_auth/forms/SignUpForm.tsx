@@ -142,7 +142,10 @@ export const SignUpForm = () => {
             )}
           />
 
-          <Button type="submit" className="shad-button_primary mt-4">
+          <Button
+            type="submit"
+            className="shad-button_primary mt-4"
+            disabled={isCreateAccountLoading}>
             {isCreateAccountLoading ? (
               <div className="flex-center gap-2">
                 <Loader />

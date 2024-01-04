@@ -7,20 +7,21 @@ import {
 import {
   createPost,
   createUserAccount,
+  getRecentPosts,
   signInAccount,
   signOutAccount,
 } from "../appwrite/api";
 import { INewPost, INewUser } from "@/types/types";
 import { QUERY_KEYS } from "./query-keys";
 
-// create a new User (sign up)
+// * create a new User (sign up)
 export const useCreateUserAccount = () => {
   return useMutation({
     mutationFn: (user: INewUser) => createUserAccount(user),
   });
 };
 
-// sign in Account
+// * sign in Account
 export const useSignInAccount = () => {
   return useMutation({
     mutationFn: (user: { email: string; password: string }) =>
@@ -28,14 +29,14 @@ export const useSignInAccount = () => {
   });
 };
 
-// sign out
+// * sign out
 export const useSignOutAccount = () => {
   return useMutation({
     mutationFn: signOutAccount,
   });
 };
 
-// create post
+// * create post
 export const useCreatePost = () => {
   const queryClient = useQueryClient();
 
@@ -46,5 +47,13 @@ export const useCreatePost = () => {
         queryKey: [QUERY_KEYS.GET_RECENT_POSTS],
       });
     },
+  });
+};
+
+// * get posts
+export const useGetRecentPosts = () => {
+  return useQuery({
+    queryKey: [QUERY_KEYS.GET_RECENT_POSTS],
+    queryFn: getRecentPosts,
   });
 };

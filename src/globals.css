@@ -260,7 +260,7 @@
   }
 
   .divide-line {
-    @apply w-full border border-t border-t-light-2;
+    @apply w-full border-t border-t-light-2;
   }
 
   /* Post Card */

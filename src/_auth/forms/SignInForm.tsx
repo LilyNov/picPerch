@@ -62,6 +62,8 @@ export const SignInForm = () => {
     }
   };
 
+  const isLoading = isPending || isUserLoading;
+
   return (
     <Form {...form}>
       <div className="sm:w-420 flex-center flex-col">
@@ -105,8 +107,11 @@ export const SignInForm = () => {
             )}
           />
 
-          <Button type="submit" className="shad-button_primary mt-4">
-            {isPending || isUserLoading ? (
+          <Button
+            type="submit"
+            className="shad-button_primary mt-4"
+            disabled={isLoading}>
+            {isLoading ? (
               <div className="flex-center gap-2">
                 <Loader />
                 Loading...

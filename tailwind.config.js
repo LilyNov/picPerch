@@ -3,6 +3,7 @@ const defaultTheme = require("tailwindcss/defaultTheme");
 
 module.exports = {
   darkMode: ["class"],
+  lightMode: ["class"],
   content: [
     "./pages/**/*.{ts,tsx}",
     "./components/**/*.{ts,tsx}",
@@ -19,6 +20,8 @@ module.exports = {
     },
     extend: {
       colors: {
+        // darkMode
+
         // "primary-500": "#f95959",
         // "primary-600": "#be3144",
         // "secondary-500": "#FFB620",
@@ -34,6 +37,7 @@ module.exports = {
         // "light-4": "#5C5C7B",
         // "light-5": "#4f6b94",
 
+        // lightMode
         "primary-400": "#ffc07a", //bg dropzone
         "primary-500": "#FF9846", //buttons, text hover
         "primary-600": "#F46D40",
