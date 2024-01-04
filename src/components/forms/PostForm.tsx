@@ -18,8 +18,18 @@ import { PostFormValidationSchema } from "@/lib/validation/validation";
 import { Textarea } from "../ui/textarea";
 import { FileUploader } from "../shared/FileUploader/FileUploader";
 import { PostFormProps } from "./postForm.types";
+import { useCreatePost } from "@/lib/react-query/queriesAndMutations";
+import { useUserContext } from "@/context/AuthContext";
+import { useToast } from "../ui/use-toast";
+import { useNavigate } from "react-router-dom";
+import { Loader } from "../shared/Loader";
 
 export const PostForm: React.FC<PostFormProps> = ({ post }) => {
+  const { user } = useUserContext();
+  const { toast } = useToast();
+  const navigate = useNavigate();
+
+  const { mutateAsync: createPost, isPending } = useCreatePost();
   // 1. Define your form.
   const form = useForm<z.infer<typeof PostFormValidationSchema>>({
     mode: "onSubmit",
@@ -34,11 +44,20 @@ export const PostForm: React.FC<PostFormProps> = ({ post }) => {
   });
 
   // 2. Define a submit handler.
-  function onSubmit(values: z.infer<typeof PostFormValidationSchema>) {
-    // Do something with the form values.
-    // ✅ This will be type-safe and validated.
-    console.log(values);
-  }
+  const onSubmit = async (values: z.infer<typeof PostFormValidationSchema>) => {
+    const newPost = await createPost({
+      ...values,
+      userId: user.id,
+    });
+
+    if (!newPost) {
+      toast({
+        title: "Something went wrong. Please try again",
+      });
+    }
+
+    navigate("/");
+  };
 
   return (
     <Form {...form}>
@@ -118,13 +137,24 @@ export const PostForm: React.FC<PostFormProps> = ({ post }) => {
           )}
         />
         <div className="flex gap-10 items-center justify-center">
-          <Button type="button" className="shad-button_light-2 w-1/2">
+          <Button
+            type="button"
+            className="shad-button_light-2 w-1/2"
+            disabled={isPending}>
             Cancel
           </Button>
           <Button
             type="submit"
-            className="shad-button_primary whitespace-nowrap w-1/2">
-            Create
+            className="shad-button_primary whitespace-nowrap w-1/2"
+            disabled={isPending}>
+            {isPending ? (
+              <div className="flex-center gap-2">
+                <Loader />
+                Loading...
+              </div>
+            ) : (
+              "Create"
+            )}
           </Button>
         </div>
       </form>
