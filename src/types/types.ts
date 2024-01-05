@@ -1,3 +1,4 @@
+import { Models } from "appwrite";
 import React from "react";
 
 export type IContextType = {
@@ -23,6 +24,29 @@ export type IUpdateUser = {
   imageUrl: URL | string;
   file: File[];
 };
+
+export interface ICreator extends Models.Document {
+  accountId: string;
+  bio: string | null;
+  email: string;
+  imageId: string | null;
+  imageUrl: string;
+  // liked: [];
+  name: string;
+  // save: [];
+  username: string | null;
+}
+
+export interface IPost extends Models.Document {
+  caption: string;
+  creator: ICreator;
+  imageId: string;
+  imageUrl: string;
+  // likes: [];
+  location?: string;
+  // save: []
+  tags?: string[];
+}
 
 export type INewPost = {
   userId: string;

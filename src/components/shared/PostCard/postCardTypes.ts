@@ -1,5 +1,6 @@
-import { Models } from "appwrite";
+import { IPost } from "@/types/types";
 
 export interface PostCardProps {
-  post: Models.Document;
+  post: IPost;
+  isCurrentUserCreator?: boolean;
 }
