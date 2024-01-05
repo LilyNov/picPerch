@@ -42,9 +42,9 @@ export interface IPost extends Models.Document {
   creator: ICreator;
   imageId: string;
   imageUrl: string;
-  // likes: [];
+  likes: any[];
   location?: string;
-  // save: []
+  save: any[];
   tags?: string[];
 }
 
@@ -80,4 +80,14 @@ export type INewUser = {
   email: string;
   username: string;
   password: string;
+};
+
+export type ILikePost = {
+  postId: string;
+  likesArray: string[];
+};
+
+export type ISavePost = {
+  postId: string;
+  userId: string;
 };

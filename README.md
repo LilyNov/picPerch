@@ -22,5 +22,6 @@ This project is seamlessly set up with Vite, offering a robust foundation for a 
 - **react-i18next:** A powerful internationalization framework, ensuring the application is accessible to a global audience.
 - **Theme Switcher:** Enhancing user experience with the flexibility to switch between different visual themes.
 - **Unit Tests:** Prioritizing code quality and reliability, unit tests will be implemented to ensure robust and bug-free functionality.
+- **Google Authorization:** Implementing Google Authorization to enhance user authentication and authorization, providing a secure and seamless login experience.
 
 This project stands as a testament to efficient and secure app development. With Vite, React, TypeScript, and a carefully chosen stack of powerful technologies, it paves the way for a user-friendly, feature-rich, and internationally accessible web application. The inclusion of Appwrite on the backend ensures a seamless end-to-end experience. As future plans unfold, features like internationalization, theme switching, thorough unit testing will further elevate the project.

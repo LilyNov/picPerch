@@ -1,9 +1,8 @@
-import React from "react";
-import { PostCardProps } from "../postCardTypes";
 import { Link } from "react-router-dom";
+import { PostCreatorProps } from "../postCardTypes";
 import { multiFormatDateString } from "@/lib/utils";
 
-export const PostCreator: React.FC<PostCardProps> = (props) => {
+export const PostCreator: React.FC<PostCreatorProps> = (props) => {
   const { post, isCurrentUserCreator } = props;
 
   return (
