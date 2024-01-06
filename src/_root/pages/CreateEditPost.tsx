@@ -1,6 +1,13 @@
 import { PostForm } from "@/components/forms";
+import { IParams } from "@/types/types";
+import { useParams } from "react-router-dom";
 
-export const CreatePost = () => {
+export const CreateEditPost = () => {
+  const { id } = useParams<IParams>();
+
+  const isEditPage = !!id;
+  const mode = isEditPage ? "Edit" : "Create";
+
   return (
     <div className="flex flex-1">
       <div className="common-container">
@@ -10,10 +17,10 @@ export const CreatePost = () => {
             alt="add post"
             className="w-9"
           />
-          <h2 className="h3-bold md:h2-bold text-left w-full">Create Post</h2>
+          <h2 className="h3-bold md:h2-bold text-left w-full">{`${mode} Post`}</h2>
         </div>
 
-        <PostForm />
+        <PostForm mode={mode} />
       </div>
     </div>
   );

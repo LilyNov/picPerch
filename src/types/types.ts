@@ -1,6 +1,12 @@
 import { Models } from "appwrite";
 import React from "react";
 
+export type IParams = {
+  id: string;
+};
+
+export type Mode = "Create" | "Edit";
+
 export type IContextType = {
   user: IUser;
   isLoading: boolean;

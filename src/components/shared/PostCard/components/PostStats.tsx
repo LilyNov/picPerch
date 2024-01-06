@@ -25,13 +25,12 @@ export const PostStats: React.FC<PostStatsProps> = (props) => {
   const [likes, setLikes] = useState<string[]>(likesListUserId);
   const [isSaved, setIsSaved] = useState(false);
 
-  const savedPost = currentUserPostsQ?.save.find(
+  const getSavedPost = currentUserPostsQ?.save.find(
     (savedPost: Models.Document) => savedPost.post.$id === post.$id
   );
-  console.log("isSaved", isSaved);
 
   useEffect(() => {
-    setIsSaved(!!savedPost);
+    setIsSaved(!!getSavedPost);
   }, [currentUserPostsQ]);
 
   const likePostHandler = (e: React.MouseEvent) => {
@@ -55,7 +54,7 @@ export const PostStats: React.FC<PostStatsProps> = (props) => {
 
     if (isSaved) {
       setIsSaved(false);
-      deleteSavedPostM(savedPost.$id);
+      deleteSavedPostM(getSavedPost.$id);
     } else {
       savePostM({ postId: post.$id, userId });
       setIsSaved(true);

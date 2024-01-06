@@ -24,7 +24,7 @@ import { useToast } from "../ui/use-toast";
 import { useNavigate } from "react-router-dom";
 import { Loader } from "../shared/Loader";
 
-export const PostForm: React.FC<PostFormProps> = ({ post }) => {
+export const PostForm: React.FC<PostFormProps> = ({ mode, post }) => {
   const { user } = useUserContext();
   const { toast } = useToast();
   const navigate = useNavigate();
@@ -89,6 +89,7 @@ export const PostForm: React.FC<PostFormProps> = ({ post }) => {
               <FormLabel className="shad-form_label">Add photos</FormLabel>
               <FormControl>
                 <FileUploader
+                  mode={mode}
                   fieldChange={field.onChange}
                   mediaUrl={post?.imageUrl}
                 />

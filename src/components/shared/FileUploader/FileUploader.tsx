@@ -4,6 +4,7 @@ import { Button } from "../../ui/button";
 import { FileUploaderProps } from "./fileUploader.types";
 
 export const FileUploader: React.FC<FileUploaderProps> = ({
+  mode,
   fieldChange,
   mediaUrl,
 }) => {
@@ -23,7 +24,11 @@ export const FileUploader: React.FC<FileUploaderProps> = ({
       "image/*": [".png", "jpeg", ".jpg", ".svg"],
     },
   });
+
+  console.log(mediaUrl);
+
   const textColor = isDragActive ? "invert-white" : "text-light-2";
+  const imgSrc = mode === "Create" ? fileUrl : mediaUrl;
 
   return (
     <div
@@ -32,10 +37,10 @@ export const FileUploader: React.FC<FileUploaderProps> = ({
         isDragActive ? "bg-primary-400" : "bg-white"
       }`}>
       <input {...getInputProps()} className="cursor-pointer" />
-      {fileUrl ? (
+      {imgSrc ? (
         <>
           <div className="flex flex-1 justify-center w-1000 p-5 lg:p-10">
-            <img src={fileUrl} alt="image" className="file_uploader-img" />
+            <img src={imgSrc} alt="image" className="file_uploader-img" />
           </div>
           <p className="file_uploader-label">Click or drag photo to replace</p>
         </>
