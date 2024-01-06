@@ -8,6 +8,10 @@ export interface PostCreatorProps extends PostCardProps {
   isCurrentUserCreator: boolean;
 }
 
+export interface PostStatsProps extends PostCardProps {
+  userId: string;
+}
+
 export interface LikePostProps {
   userId: string;
   likes: string[];
@@ -15,6 +19,7 @@ export interface LikePostProps {
 }
 
 export interface SavePostProps {
+  isLoading: boolean;
   isSaved: boolean;
   savePostHandler: (e: React.MouseEvent) => void;
 }

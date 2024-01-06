@@ -8,6 +8,7 @@ import {
   createPost,
   createUserAccount,
   deleteSavedPost,
+  getCurrentUser,
   getRecentPosts,
   likePost,
   savePost,
@@ -122,5 +123,13 @@ export const useDeleteSavedPost = () => {
         queryKey: [QUERY_KEYS.GET_CURRENT_USER],
       });
     },
+  });
+};
+
+// * get info about liked and saved posts for current user
+export const useGetCurrentUser = () => {
+  return useQuery({
+    queryKey: [QUERY_KEYS.GET_CURRENT_USER],
+    queryFn: getCurrentUser,
   });
 };

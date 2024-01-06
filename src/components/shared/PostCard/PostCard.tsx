@@ -19,7 +19,7 @@ export const PostCard: React.FC<PostCardProps> = ({ post }) => {
       <img src={post.imageUrl} alt="image" className="post-card_img" />
 
       {/* post statistics */}
-      <PostStats post={post} />
+      <PostStats post={post} userId={user.id} />
     </div>
   );
 };

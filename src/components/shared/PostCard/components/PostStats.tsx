@@ -1,26 +1,38 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Models } from "appwrite";
-import { useUserContext } from "@/context/AuthContext";
 import {
   useDeleteSavedPost,
+  useGetCurrentUser,
   useLikePost,
   useSavePost,
 } from "@/lib/react-query/queriesAndMutations";
-import { PostCardProps } from "../postCardTypes";
+import { PostStatsProps } from "../postCardTypes";
 import { LikePost } from "./LikePost";
 import { SavePost } from "./SavePost";
 
-export const PostStats: React.FC<PostCardProps> = ({ post }) => {
-  const { mutate: likePostM } = useLikePost();
-  const { mutate: savePostM } = useSavePost();
-  const { mutate: deleteSavedPostM } = useDeleteSavedPost();
+export const PostStats: React.FC<PostStatsProps> = (props) => {
+  const { post, userId } = props;
 
-  const { user } = useUserContext();
-  const userId = user.id;
+  const { mutate: likePostM } = useLikePost();
+  const { mutate: savePostM, isPending: isSavingPost } = useSavePost();
+  const { mutate: deleteSavedPostM, isPending: isDeletingPost } =
+    useDeleteSavedPost();
+
+  const { data: currentUserPostsQ } = useGetCurrentUser();
 
   const likesListUserId = post.likes.map((user: Models.Document) => user.$id);
+
   const [likes, setLikes] = useState<string[]>(likesListUserId);
   const [isSaved, setIsSaved] = useState(false);
+
+  const savedPost = currentUserPostsQ?.save.find(
+    (savedPost: Models.Document) => savedPost.post.$id === post.$id
+  );
+  console.log("isSaved", isSaved);
+
+  useEffect(() => {
+    setIsSaved(!!savedPost);
+  }, [currentUserPostsQ]);
 
   const likePostHandler = (e: React.MouseEvent) => {
     e.stopPropagation();
@@ -40,6 +52,14 @@ export const PostStats: React.FC<PostCardProps> = ({ post }) => {
 
   const savePostHandler = (e: React.MouseEvent) => {
     e.stopPropagation();
+
+    if (isSaved) {
+      setIsSaved(false);
+      deleteSavedPostM(savedPost.$id);
+    } else {
+      savePostM({ postId: post.$id, userId });
+      setIsSaved(true);
+    }
   };
 
   return (
@@ -47,9 +67,13 @@ export const PostStats: React.FC<PostCardProps> = ({ post }) => {
       <LikePost
         likePostHandler={likePostHandler}
         likes={likes}
-        userId={user.id}
+        userId={userId}
       />
-      <SavePost savePostHandler={savePostHandler} isSaved={isSaved} />
+      <SavePost
+        savePostHandler={savePostHandler}
+        isSaved={isSaved}
+        isLoading={isSavingPost || isDeletingPost}
+      />
     </div>
   );
 };
