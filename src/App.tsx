@@ -5,12 +5,12 @@ import {
   Home,
   AllUsers,
   Saved,
-  CreatePost,
-  EditPost,
   PostDetails,
   Profile,
   UpdateProfile,
   LikedPosts,
+  CreatePost,
+  EditPost,
 } from "./_root/pages";
 import { SignInForm, SignUpForm } from "./_auth/forms";
 import { AuthLayout } from "./_auth/AuthLayout";

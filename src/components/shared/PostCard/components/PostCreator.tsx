@@ -28,7 +28,7 @@ export const PostCreator: React.FC<PostCreatorProps> = (props) => {
       </div>
 
       {isCurrentUserCreator && (
-        <Link to={`/update-post ${post.$id}`}>
+        <Link to={`/update-post/${post.$id}`}>
           <img src="/assets/icons/edit-post.svg" alt="edit" className="w-8" />
         </Link>
       )}

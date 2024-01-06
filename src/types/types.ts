@@ -1,5 +1,12 @@
+import { CREATE_MODE, EDIT_MODE } from "@/constants/constants";
 import { Models } from "appwrite";
 import React from "react";
+
+export type Mode = typeof CREATE_MODE | typeof EDIT_MODE;
+
+export type IParams = {
+  id: string;
+};
 
 export type IContextType = {
   user: IUser;
@@ -90,4 +97,9 @@ export type ILikePost = {
 export type ISavePost = {
   postId: string;
   userId: string;
+};
+
+export type IDeletePost = {
+  postId: string;
+  imageId: string;
 };

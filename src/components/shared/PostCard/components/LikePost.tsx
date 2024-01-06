@@ -1,7 +1,8 @@
 import { checkIsLiked } from "@/lib/utils";
 import { LikePostProps } from "../postCardTypes";
+import React from "react";
 
-export const LikePost: React.FC<LikePostProps> = (props) => {
+export const LikePost: React.FC<LikePostProps> = React.memo((props) => {
   const { likePostHandler, likes, userId } = props;
 
   const currentImg = checkIsLiked(likes, userId)
@@ -19,4 +20,4 @@ export const LikePost: React.FC<LikePostProps> = (props) => {
       <p className="small-medium lg:base-medium">{likes.length}</p>
     </div>
   );
-};
+});

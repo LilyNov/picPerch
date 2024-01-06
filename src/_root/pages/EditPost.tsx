@@ -1,5 +1,5 @@
-import React from "react";
+import { CreateEditPost } from "@/components/shared/CreateEditPost";
 
 export const EditPost = () => {
-  return <div>EditPost</div>;
+  return <CreateEditPost />;
 };

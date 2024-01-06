@@ -2,7 +2,7 @@ import React from "react";
 import { SavePostProps } from "../postCardTypes";
 import { Loader } from "../../Loader";
 
-export const SavePost: React.FC<SavePostProps> = (props) => {
+export const SavePost: React.FC<SavePostProps> = React.memo((props) => {
   const { isLoading, isSaved, savePostHandler } = props;
 
   const currentImg = isSaved
@@ -23,4 +23,4 @@ export const SavePost: React.FC<SavePostProps> = (props) => {
       )}
     </div>
   );
-};
+});
