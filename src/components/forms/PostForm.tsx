@@ -18,34 +18,83 @@ import { PostFormValidationSchema } from "@/lib/validation/validation";
 import { Textarea } from "../ui/textarea";
 import { FileUploader } from "../shared/FileUploader/FileUploader";
 import { PostFormProps } from "./postForm.types";
-import { useCreatePost } from "@/lib/react-query/queriesAndMutations";
+import {
+  useCreatePost,
+  useUpdatePost,
+} from "@/lib/react-query/queriesAndMutations";
 import { useUserContext } from "@/context/AuthContext";
 import { useToast } from "../ui/use-toast";
 import { useNavigate } from "react-router-dom";
 import { Loader } from "../shared/Loader";
+import { EDIT_MODE } from "@/constants/constants";
+import { useEffect } from "react";
 
 export const PostForm: React.FC<PostFormProps> = ({ mode, post }) => {
   const { user } = useUserContext();
   const { toast } = useToast();
   const navigate = useNavigate();
+  const isEditMode = mode === EDIT_MODE;
 
-  const { mutateAsync: createPost, isPending } = useCreatePost();
+  const { mutateAsync: createPostM, isPending: isCreating } = useCreatePost();
+  const { mutateAsync: updatePostM, isPending: isUpdating } = useUpdatePost();
+
+  const isLoading = isCreating || isUpdating;
+  const buttonText = isEditMode ? "Save" : "Create";
+  const labelText = isEditMode ? "Edit" : "Add";
+
+  const defaultValues =
+    isEditMode && post
+      ? {
+          caption: post?.caption,
+          file: [],
+          location: post?.location,
+          tags: post?.tags.join(","),
+        }
+      : {
+          caption: "",
+          file: [],
+          location: "",
+          tags: "",
+        };
+
   // 1. Define your form.
   const form = useForm<z.infer<typeof PostFormValidationSchema>>({
     mode: "onSubmit",
     reValidateMode: "onChange",
     resolver: zodResolver(PostFormValidationSchema),
-    defaultValues: {
-      caption: post ? post?.caption : "",
-      file: [],
-      location: post ? post?.location : "",
-      tags: post ? post?.tags.join(",") : "",
-    },
+    defaultValues,
   });
+
+  useEffect(() => {
+    return () => {
+      form.reset({
+        caption: "",
+        location: "",
+        tags: "",
+      });
+    };
+  }, [form.reset]);
 
   // 2. Define a submit handler.
   const onSubmit = async (values: z.infer<typeof PostFormValidationSchema>) => {
-    const newPost = await createPost({
+    if (post && isEditMode) {
+      const updatedPost = updatePostM({
+        ...values,
+        postId: post.$id,
+        imageId: post?.imageId,
+        imageUrl: post?.imageUrl,
+      });
+
+      if (!updatedPost) {
+        toast({
+          title: "Something went wrong. Please try again",
+        });
+      }
+
+      return navigate(`posts/${post.$id}`);
+    }
+
+    const newPost = await createPostM({
       ...values,
       userId: user.id,
     });
@@ -70,7 +119,7 @@ export const PostForm: React.FC<PostFormProps> = ({ mode, post }) => {
           name="caption"
           render={({ field }) => (
             <FormItem>
-              <FormLabel className="shad-form_label">Caption</FormLabel>
+              <FormLabel className="shad-form_label">{`${labelText} caption`}</FormLabel>
               <FormControl>
                 <Textarea className="shad-textarea" {...field} />
               </FormControl>
@@ -80,18 +129,21 @@ export const PostForm: React.FC<PostFormProps> = ({ mode, post }) => {
           )}
         />
 
-        {/* Add photos */}
+        {/* Photo */}
         <FormField
           control={form.control}
           name="file"
           render={({ field }) => (
             <FormItem>
-              <FormLabel className="shad-form_label">Add photos</FormLabel>
+              <FormLabel className="shad-form_label">
+                {isEditMode ? "Photo" : "Add photo"}
+              </FormLabel>
               <FormControl>
                 <FileUploader
                   mode={mode}
                   fieldChange={field.onChange}
                   mediaUrl={post?.imageUrl}
+                  isEditMode={isEditMode}
                 />
               </FormControl>
 
@@ -106,7 +158,9 @@ export const PostForm: React.FC<PostFormProps> = ({ mode, post }) => {
           name="location"
           render={({ field }) => (
             <FormItem>
-              <FormLabel className="shad-form_label">Add location</FormLabel>
+              <FormLabel className="shad-form_label">
+                {`${labelText} location`}
+              </FormLabel>
               <FormControl>
                 <Input className="shad-input" {...field} />
               </FormControl>
@@ -123,7 +177,7 @@ export const PostForm: React.FC<PostFormProps> = ({ mode, post }) => {
           render={({ field }) => (
             <FormItem>
               <FormLabel className="shad-form_label">
-                Add tags (separated by comma " , ")
+                {`${labelText} tags (separated by comma " , "`})
               </FormLabel>
               <FormControl>
                 <Input
@@ -141,21 +195,19 @@ export const PostForm: React.FC<PostFormProps> = ({ mode, post }) => {
           <Button
             type="button"
             className="shad-button_light-2 w-1/2"
-            disabled={isPending}>
+            disabled={isLoading}>
             Cancel
           </Button>
           <Button
             type="submit"
             className="shad-button_primary whitespace-nowrap w-1/2"
-            disabled={isPending}>
-            {isPending ? (
+            disabled={isLoading}>
+            {isLoading && (
               <div className="flex-center gap-2">
                 <Loader />
-                Loading...
               </div>
-            ) : (
-              "Create"
             )}
+            {buttonText}
           </Button>
         </div>
       </form>

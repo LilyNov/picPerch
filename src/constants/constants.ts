@@ -48,3 +48,6 @@ export const bottomBarLinks = [
     label: "Create",
   },
 ];
+
+export const CREATE_MODE = "Create";
+export const EDIT_MODE = "Edit";

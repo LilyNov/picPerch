@@ -5,11 +5,12 @@ import {
   Home,
   AllUsers,
   Saved,
-  CreateEditPost,
   PostDetails,
   Profile,
   UpdateProfile,
   LikedPosts,
+  CreatePost,
+  EditPost,
 } from "./_root/pages";
 import { SignInForm, SignUpForm } from "./_auth/forms";
 import { AuthLayout } from "./_auth/AuthLayout";
@@ -33,8 +34,8 @@ export const App = () => {
           <Route path="/all-users" element={<AllUsers />} />
           <Route path="/saved" element={<Saved />} />
           {/* <Route path="/update-profile/:id" element={<LikedPosts />} /> */}
-          <Route path="/create-post" element={<CreateEditPost />} />
-          <Route path="/update-post/:id" element={<CreateEditPost />} />
+          <Route path="/create-post" element={<CreatePost />} />
+          <Route path="/update-post/:id" element={<EditPost />} />
           <Route path="/posts/:id" element={<PostDetails />} />
           <Route path="/profile/:id" element={<Profile />} />
           <Route path="/update-profile/:id" element={<UpdateProfile />} />

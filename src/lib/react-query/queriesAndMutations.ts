@@ -7,15 +7,25 @@ import {
 import {
   createPost,
   createUserAccount,
+  deletePost,
   deleteSavedPost,
   getCurrentUser,
+  getPostById,
   getRecentPosts,
   likePost,
   savePost,
   signInAccount,
   signOutAccount,
+  updatePost,
 } from "../appwrite/api";
-import { ILikePost, INewPost, INewUser, ISavePost } from "@/types/types";
+import {
+  IDeletePost,
+  ILikePost,
+  INewPost,
+  INewUser,
+  ISavePost,
+  IUpdatePost,
+} from "@/types/types";
 import { QUERY_KEYS } from "./query-keys";
 
 // * create a new User (sign up)
@@ -131,5 +141,43 @@ export const useGetCurrentUser = () => {
   return useQuery({
     queryKey: [QUERY_KEYS.GET_CURRENT_USER],
     queryFn: getCurrentUser,
+  });
+};
+
+// * get Post by id
+export const useGetPostById = (postId: string = "", isCreateMode: boolean) => {
+  return useQuery({
+    queryKey: [QUERY_KEYS.GET_POST_BY_ID],
+    queryFn: () => getPostById(postId),
+    enabled: !!postId || isCreateMode,
+  });
+};
+
+// * update Post
+export const useUpdatePost = () => {
+  const queryClient = useQueryClient();
+
+  return useMutation({
+    mutationFn: (post: IUpdatePost) => updatePost(post),
+    onSuccess: (data) => {
+      queryClient.invalidateQueries({
+        queryKey: [QUERY_KEYS.GET_POST_BY_ID, data?.$id],
+      });
+    },
+  });
+};
+
+// * delete Post
+export const useDeletePost = () => {
+  const queryClient = useQueryClient();
+
+  return useMutation({
+    mutationFn: ({ postId, imageId }: IDeletePost) =>
+      deletePost(postId, imageId),
+    onSuccess: () => {
+      queryClient.invalidateQueries({
+        queryKey: [QUERY_KEYS.GET_RECENT_POSTS],
+      });
+    },
   });
 };
