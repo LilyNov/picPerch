@@ -1,7 +1,6 @@
-import React from "react";
 import { PostCardProps } from "./postCardTypes";
 import { useUserContext } from "@/context/AuthContext";
-import { PostCreator, PostDescription } from "./components";
+import { PostCreator, PostDescription, PostStats } from "./components";
 
 export const PostCard: React.FC<PostCardProps> = ({ post }) => {
   const { user } = useUserContext();
@@ -17,8 +16,10 @@ export const PostCard: React.FC<PostCardProps> = ({ post }) => {
       <PostDescription post={post} />
 
       {/* image */}
-
       <img src={post.imageUrl} alt="image" className="post-card_img" />
+
+      {/* post statistics */}
+      <PostStats post={post} userId={user.id} />
     </div>
   );
 };

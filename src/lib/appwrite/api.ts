@@ -83,8 +83,8 @@ export const signOutAccount = async () => {
 
 // for checkAuthUser (AuthContext)
 
-// GET account
-export async function getAccount() {
+// ! GET account
+export const getAccount = async () => {
   try {
     const currentAccount = await account.get();
 
@@ -92,7 +92,7 @@ export async function getAccount() {
   } catch (error) {
     console.log(error);
   }
-}
+};
 
 // check current user
 export const getCurrentUser = async () => {
@@ -223,6 +223,66 @@ export const getRecentPosts = async () => {
     if (!posts) throw Error;
 
     return posts;
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+// * INTERACTION with posts
+
+// like
+export const likePost = async (postId: string, likesArray: string[]) => {
+  try {
+    const updatedPost = await databases.updateDocument(
+      appwriteConfig.databaseId,
+      appwriteConfig.postCollectionId,
+      postId,
+      {
+        likes: likesArray,
+      }
+    );
+
+    if (!updatedPost) throw Error;
+
+    return updatedPost;
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+// save
+export const savePost = async (postId: string, userId: string) => {
+  try {
+    const updatedPost = await databases.createDocument(
+      appwriteConfig.databaseId,
+      appwriteConfig.savesCollectionId,
+      ID.unique(),
+      {
+        user: userId,
+        post: postId,
+      }
+    );
+
+    if (!updatedPost) throw Error;
+
+    return updatedPost;
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+// delete saved
+export const deleteSavedPost = async (savedPostId: string) => {
+  try {
+    const statuseCode = await databases.deleteDocument(
+      appwriteConfig.databaseId,
+      appwriteConfig.savesCollectionId,
+      savedPostId
+    );
+
+    if (!statuseCode) throw Error;
+
+    return { status: "ok" };
   } catch (error) {
     console.log(error);
   }

@@ -1,4 +1,3 @@
-import React from "react";
 import { PostCardProps } from "../postCardTypes";
 import { Link } from "react-router-dom";
 
