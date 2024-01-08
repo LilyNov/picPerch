@@ -1,4 +1,4 @@
-"use client";
+import { useEffect } from "react";
 
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
@@ -27,7 +27,6 @@ import { useToast } from "../ui/use-toast";
 import { useNavigate } from "react-router-dom";
 import { Loader } from "../shared/Loader";
 import { EDIT_MODE } from "@/constants/constants";
-import { useEffect } from "react";
 
 export const PostForm: React.FC<PostFormProps> = ({ mode, post }) => {
   const { user } = useUserContext();
@@ -41,30 +40,33 @@ export const PostForm: React.FC<PostFormProps> = ({ mode, post }) => {
   const isLoading = isCreating || isUpdating;
   const buttonText = isEditMode ? "Save" : "Create";
   const labelText = isEditMode ? "Edit" : "Add";
+  const isEditing = isEditMode && post;
 
-  const defaultValues =
-    isEditMode && post
-      ? {
-          caption: post?.caption,
-          file: [],
-          location: post?.location,
-          tags: post?.tags.join(","),
-        }
-      : {
-          caption: "",
-          file: [],
-          location: "",
-          tags: "",
-        };
+  // if (isEditMode && !post) return <Loader />;
 
-  // 1. Define your form.
+  // 1. Define the form.
   const form = useForm<z.infer<typeof PostFormValidationSchema>>({
     mode: "onSubmit",
     reValidateMode: "onChange",
     resolver: zodResolver(PostFormValidationSchema),
-    defaultValues,
+    defaultValues: {
+      caption: isEditing ? post?.caption : "",
+      file: [],
+      location: isEditing ? post?.location : "",
+      tags: isEditing ? post?.tags.join(",") : "",
+    },
   });
 
+  // Update defaultValues when post changes
+  useEffect(() => {
+    if (!isEditing) return;
+
+    form.setValue("caption", isEditing ? post?.caption : "");
+    form.setValue("location", isEditing ? post?.location : "");
+    form.setValue("tags", isEditing ? post?.tags.join(",") : "");
+  }, [isEditing, post]);
+
+  // Reset the form on component unmount
   useEffect(() => {
     return () => {
       form.reset({
@@ -105,6 +107,10 @@ export const PostForm: React.FC<PostFormProps> = ({ mode, post }) => {
       });
     }
 
+    navigate("/");
+  };
+
+  const handleCancelEditing = () => {
     navigate("/");
   };
 
@@ -195,7 +201,8 @@ export const PostForm: React.FC<PostFormProps> = ({ mode, post }) => {
           <Button
             type="button"
             className="shad-button_light-2 w-1/2"
-            disabled={isLoading}>
+            disabled={isLoading}
+            onClick={handleCancelEditing}>
             Cancel
           </Button>
           <Button

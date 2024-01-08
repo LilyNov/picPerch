@@ -3,7 +3,7 @@ import { SavePostProps } from "../postCardTypes";
 import { Loader } from "../../Loader";
 
 export const SavePost: React.FC<SavePostProps> = React.memo((props) => {
-  const { isLoading, isSaved, savePostHandler } = props;
+  const { isLoading, isSaved, handleSavePost } = props;
 
   const currentImg = isSaved
     ? "/assets/icons/saved.svg"
@@ -18,7 +18,7 @@ export const SavePost: React.FC<SavePostProps> = React.memo((props) => {
           src={currentImg}
           alt="like"
           className="w-6 cursor-pointer"
-          onClick={savePostHandler}
+          onClick={handleSavePost}
         />
       )}
     </div>
