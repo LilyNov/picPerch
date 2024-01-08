@@ -3,12 +3,12 @@ import { PostCreatorProps } from "../postCardTypes";
 import { multiFormatDateString } from "@/lib/utils";
 
 export const PostCreator: React.FC<PostCreatorProps> = (props) => {
-  const { post, isCurrentUserCreator } = props;
+  const { post, isCurrentUserCreator = false } = props;
 
   return (
     <div className="flex-between">
       <div className="flex items-center gap-3">
-        {post.creator && (
+        {post?.creator && (
           <Link to={`/profile/${post?.creator?.$id}`}>
             <img
               src={post?.creator?.imageUrl}
@@ -19,16 +19,19 @@ export const PostCreator: React.FC<PostCreatorProps> = (props) => {
         )}
 
         <div className="flex flex-col">
-          <p className="base-medium lg:body-bold ">{post?.creator.name}</p>
-          <div className="flex-center gap-2 text-light-2 subtle-semibold lg:small-regular">
-            <p>{multiFormatDateString(post.$createdAt)}</p>-
-            <p>{post?.location}</p>
+          <Link to={`/profile/${post?.creator?.$id}`}>
+            <p className="base-medium lg:body-bold ">{post?.creator.name}</p>
+          </Link>
+          <div className="flex-center gap-2 text-light-2 subtle-semibold sm:tiny-medium lg:small-regular">
+            <p>
+              {multiFormatDateString(post?.$createdAt)} -{post?.location}
+            </p>
           </div>
         </div>
       </div>
 
       {isCurrentUserCreator && (
-        <Link to={`/update-post/${post.$id}`}>
+        <Link to={`/update-post/${post?.$id}`}>
           <img src="/assets/icons/edit-post.svg" alt="edit" className="w-8" />
         </Link>
       )}

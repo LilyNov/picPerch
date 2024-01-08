@@ -9,7 +9,6 @@ export const Home = () => {
   return (
     <div className="flex flex-1">
       <div className="home-container">
-        <h2 className="h3-bold md:h2-bold text-left w-full">Home feed</h2>
         {!isPending && posts ? (
           <ul className="flex flex-col flex-1 gap-9 w-full">
             {posts.map((post) => (
