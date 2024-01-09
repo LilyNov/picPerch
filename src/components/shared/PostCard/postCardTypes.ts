@@ -4,10 +4,6 @@ export interface PostCardProps {
   post: IPost;
 }
 
-export interface PostCreatorProps extends PostCardProps {
-  isCurrentUserCreator?: boolean;
-}
-
 export interface PostStatsProps extends PostCardProps {
   userId: string;
 }

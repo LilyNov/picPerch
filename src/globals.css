@@ -178,7 +178,7 @@
   }
 
   .post_details-card {
-    @apply bg-off-white w-full max-w-5xl rounded-[30px] flex-col flex xl:flex-row xl:items-start  xl:rounded-l-[24px];
+    @apply bg-off-white w-full max-w-5xl rounded-[30px] flex-col flex xl:flex-row  xl:rounded-l-[24px];
   }
 
   .post_details-img {
@@ -186,7 +186,7 @@
   }
 
   .post_details-info {
-    @apply bg-dark-2 flex flex-col gap-5 lg:gap-7 flex-1 items-start p-8 rounded-[30px];
+    @apply flex flex-col gap-5 lg:gap-7 flex-1 items-start p-8 w-full;
   }
 
   .post_details-delete_btn {

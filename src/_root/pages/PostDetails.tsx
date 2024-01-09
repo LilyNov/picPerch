@@ -1,10 +1,15 @@
-import { PostCreator } from "@/components/shared/PostCard/components";
+import { Loader } from "@/components/shared/Loader";
+import {
+  PostCreator,
+  PostDescription,
+  PostStats,
+} from "@/components/shared/PostCard/components";
 import { Button } from "@/components/ui/button";
 import { useUserContext } from "@/context/AuthContext";
 import { isCurrentUserCreator } from "@/helpers/helpers";
 import { useGetPostById } from "@/lib/react-query/queriesAndMutations";
+import { multiFormatDateString } from "@/lib/utils";
 import { IParams, IPost } from "@/types/types";
-import { Loader } from "lucide-react";
 import { Link, useParams } from "react-router-dom";
 
 export const PostDetails = () => {
@@ -15,19 +20,20 @@ export const PostDetails = () => {
 
   const handleDeletePost = () => {};
 
+  if (isPending && !post) return <Loader />;
+
   return (
     <div className="post_details-container">
-      {isPending ? (
-        <Loader />
-      ) : (
-        <div className="post_details-card">
-          <img src={post?.imageUrl} alt="image" className="post_details-img" />
+      <div className="post_details-card">
+        <img src={post?.imageUrl} alt="image" className="post_details-img" />
 
-          <div className="p-5 flex flex-between w-full">
+        <div className="post_details-info">
+          <div className="flex-between w-full">
             <PostCreator post={post as IPost} />
 
             {isCurrentUserCreator(user.id, post?.creator?.$id) && (
-              <div className="flex-center gap-4">
+              <div className="flex-center gap-7">
+                {/* edit post */}
                 <Link to={`/update-post/${post?.$id}`} className="p-1">
                   <img
                     src="/assets/icons/edit-post.svg"
@@ -35,6 +41,8 @@ export const PostDetails = () => {
                     className="w-6"
                   />
                 </Link>
+
+                {/* delete post */}
                 <Button
                   variant="ghost"
                   onClick={handleDeletePost}
@@ -48,8 +56,18 @@ export const PostDetails = () => {
               </div>
             )}
           </div>
+
+          {/* post description and stats */}
+          <div className="divide-line" />
+          <div className="flex flex-col flex-1 w-full">
+            <PostDescription post={post as IPost} />
+          </div>
+
+          <div className="w-full">
+            <PostStats userId={user.id} post={post as IPost} />
+          </div>
         </div>
-      )}
+      </div>
     </div>
   );
 };
