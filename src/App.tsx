@@ -16,6 +16,7 @@ import { SignInForm, SignUpForm } from "./_auth/forms";
 import { AuthLayout } from "./_auth/AuthLayout";
 import { RootLayout } from "./_root/RootLayout";
 import { Toaster } from "@/components/ui/toaster";
+import { NoMatch } from "./_root/pages/NoMatch";
 
 export const App = () => {
   return (
@@ -40,6 +41,7 @@ export const App = () => {
           <Route path="/profile/:id" element={<Profile />} />
           <Route path="/update-profile/:id" element={<UpdateProfile />} />
         </Route>
+        <Route element={<NoMatch />} />
       </Routes>
 
       <Toaster />

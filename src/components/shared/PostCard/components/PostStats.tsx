@@ -33,7 +33,7 @@ export const PostStats: React.FC<PostStatsProps> = (props) => {
     setIsSaved(!!getSavedPost);
   }, [currentUserPostsQ]);
 
-  const likePostHandler = (e: React.MouseEvent) => {
+  const handleLikePost = (e: React.MouseEvent) => {
     e.stopPropagation();
 
     let updatedLikes = [...likes];
@@ -49,7 +49,7 @@ export const PostStats: React.FC<PostStatsProps> = (props) => {
     likePostM({ postId: post.$id, likesArray: updatedLikes });
   };
 
-  const savePostHandler = (e: React.MouseEvent) => {
+  const handleSavePost = (e: React.MouseEvent) => {
     e.stopPropagation();
 
     if (isSaved) {
@@ -63,13 +63,9 @@ export const PostStats: React.FC<PostStatsProps> = (props) => {
 
   return (
     <div className="flex justify-between items-center z-20">
-      <LikePost
-        likePostHandler={likePostHandler}
-        likes={likes}
-        userId={userId}
-      />
+      <LikePost handleLikePost={handleLikePost} likes={likes} userId={userId} />
       <SavePost
-        savePostHandler={savePostHandler}
+        handleSavePost={handleSavePost}
         isSaved={isSaved}
         isLoading={isSavingPost || isDeletingPost}
       />
