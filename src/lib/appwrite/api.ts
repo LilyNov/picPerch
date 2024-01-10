@@ -364,16 +364,18 @@ export const updatePost = async (post: IUpdatePost) => {
 };
 
 export const deletePost = async (postId: string, imageId: string) => {
-  if (!postId || !imageId) throw Error;
+  if (!postId || !imageId) return;
 
   try {
     const statusCode = await databases.deleteDocument(
       appwriteConfig.databaseId,
-      appwriteConfig.savesCollectionId,
+      appwriteConfig.postCollectionId,
       postId
     );
 
     if (!statusCode) throw Error;
+
+    await deleteFile(imageId);
 
     return { status: "ok" };
   } catch (error) {

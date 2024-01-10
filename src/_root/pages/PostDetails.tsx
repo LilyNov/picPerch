@@ -7,18 +7,28 @@ import {
 import { Button } from "@/components/ui/button";
 import { useUserContext } from "@/context/AuthContext";
 import { isCurrentUserCreator } from "@/helpers/helpers";
-import { useGetPostById } from "@/lib/react-query/queriesAndMutations";
-import { multiFormatDateString } from "@/lib/utils";
+import {
+  useDeletePost,
+  useGetPostById,
+} from "@/lib/react-query/queriesAndMutations";
 import { IParams, IPost } from "@/types/types";
-import { Link, useParams } from "react-router-dom";
+import { Link, useNavigate, useParams } from "react-router-dom";
 
 export const PostDetails = () => {
+  const navigate = useNavigate();
   const { id } = useParams<IParams>();
   const { user } = useUserContext();
 
   const { data: post, isPending } = useGetPostById(id, false);
+  const { mutate: deletePost } = useDeletePost();
 
-  const handleDeletePost = () => {};
+  const handleDeletePost = () => {
+    if (id && post)
+      deletePost(
+        { postId: id, imageId: post.imageId },
+        { onSuccess: () => navigate(-1) }
+      );
+  };
 
   if (isPending && !post) return <Loader />;
 
