@@ -38,9 +38,9 @@ export interface ICreator extends Models.Document {
   email: string;
   imageId: string | null;
   imageUrl: string;
-  // liked: [];
+  liked?: [];
   name: string;
-  // save: [];
+  save?: [];
   username: string | null;
 }
 

@@ -1,8 +1,32 @@
+import { GridPostList, SearchResults } from "@/components/modules/explorePage";
 import { Input } from "@/components/ui/input";
+import useDebounce from "@/hooks/useDebounce";
+import {
+  useGetPosts,
+  useSearchPosts,
+} from "@/lib/react-query/queriesAndMutations";
+import { Loader } from "lucide-react";
 import { useState } from "react";
 
 export const Explore = () => {
+  //  const { ref, inView } = useInView();
   const [searchQuery, setSearchQuery] = useState("");
+  const debouncedSearch = useDebounce(searchQuery, 500);
+  const { data: searchedPosts, isFetching: isSearchFetching } =
+    useSearchPosts(debouncedSearch);
+  const { data: posts, fetchNextPage, hasNextPage } = useGetPosts();
+  console.log(posts);
+
+  if (!posts)
+    return (
+      <div className="flex-center w-full h-full">
+        <Loader />
+      </div>
+    );
+
+  // const shouldShowSearchResults = !!searchQuery;
+  // const shouldShowPosts =
+  //   !searchQuery && posts?.pages.every((item) => item?.documents.length === 0);
 
   const handleSearch = (e: React.ChangeEvent<HTMLInputElement>) => {
     setSearchQuery(e.target.value);
@@ -31,7 +55,28 @@ export const Explore = () => {
           </div>
         </div>
 
-        <div className="flex flex-wrap gap-9 max-w-5xl"></div>
+        {/* <div className="flex flex-wrap gap-9 max-w-5xl">
+          {shouldShowSearchResults ? (
+            <SearchResults
+              isSearchFetching={isSearchFetching}
+              searchedPosts={searchedPosts}
+            />
+          ) : shouldShowPosts ? (
+            <p className="text-light-4 mt-10 text-center w-full">
+              End of posts
+            </p>
+          ) : (
+            posts?.pages.map((item, index) => (
+              <GridPostList key={`page-${index}`} posts={item?.documents} />
+            ))
+          )}
+        </div> */}
+
+        {/* {hasNextPage && !searchQuery && (
+          <div ref={ref} className="mt-10">
+            <Loader />
+          </div>
+        )} */}
       </div>
     </div>
   );

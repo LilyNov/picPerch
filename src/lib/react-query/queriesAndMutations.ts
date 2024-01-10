@@ -10,10 +10,12 @@ import {
   deletePost,
   deleteSavedPost,
   getCurrentUser,
+  getInfinitePosts,
   getPostById,
   getRecentPosts,
   likePost,
   savePost,
+  searchPosts,
   signInAccount,
   signOutAccount,
   updatePost,
@@ -27,6 +29,8 @@ import {
   IUpdatePost,
 } from "@/types/types";
 import { QUERY_KEYS } from "./query-keys";
+import { Models } from "appwrite";
+import { IGetPostsData } from "./queries.types";
 
 // * create a new User (sign up)
 export const useCreateUserAccount = () => {
@@ -179,5 +183,30 @@ export const useDeletePost = () => {
         queryKey: [QUERY_KEYS.GET_RECENT_POSTS],
       });
     },
+  });
+};
+
+// * get Posts
+export const useGetPosts = () => {
+  return useInfiniteQuery<IGetPostsData, Error>({
+    queryKey: [QUERY_KEYS.GET_INFINITE_POSTS],
+    queryFn: getInfinitePosts,
+    getNextPageParam: (lastPage: any) => {
+      // If there's no data, there are no more pages.
+      if (lastPage && lastPage.documents.length === 0) return null;
+
+      // Use the $id of the last document as the cursor.
+      const lastId = lastPage.documents[lastPage.documents.length - 1].$id;
+      return lastId;
+    },
+  });
+};
+
+// * Search posts
+export const useSearchPosts = (searchQuery: string) => {
+  return useQuery({
+    queryKey: [QUERY_KEYS.SEARCH_POSTS, searchQuery],
+    queryFn: () => searchPosts(searchQuery),
+    enabled: !!searchQuery,
   });
 };
