@@ -123,14 +123,14 @@ export const createPost = async (post: INewPost) => {
     // Upload file to appwrite storage
     const uploadedFile = await uploadFile(post.file[0]);
 
-    if (!uploadedFile) throw Error;
+    if (!uploadedFile) throw Error("Failed to create post");
 
     // Get file url
     const fileUrl = getFilePreview(uploadedFile.$id);
 
     if (!fileUrl) {
       await deleteFile(uploadedFile.$id);
-      throw Error;
+      throw Error("Failed to create post");
     }
 
     // Convert tags into an array
@@ -155,7 +155,7 @@ export const createPost = async (post: INewPost) => {
 
     if (!newPost) {
       await deleteFile(uploadedFile.$id);
-      throw Error;
+      throw Error("Failed");
     }
 
     return newPost;
@@ -398,7 +398,7 @@ export const getInfinitePosts = async ({ pageParam }: { pageParam: any }) => {
       queries
     );
 
-    if (!posts) throw Error;
+    if (!posts) throw Error("Failed to fetch posts");
 
     return posts;
   } catch (error) {
@@ -415,7 +415,7 @@ export const searchPosts = async (searchQuery: string) => {
       [Query.search("caption", searchQuery)]
     );
 
-    if (!posts) throw Error;
+    if (!posts) throw Error("Failed to fetch posts");
 
     return posts;
   } catch (error) {

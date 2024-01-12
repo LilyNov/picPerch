@@ -1,6 +1,7 @@
 import { GridPostList, SearchResults } from "@/components/modules/explorePage";
 import { Input } from "@/components/ui/input";
 import useDebounce from "@/hooks/useDebounce";
+import { IGetPostsData } from "@/lib/react-query/queries.types";
 import {
   useGetPosts,
   useSearchPosts,
@@ -14,8 +15,8 @@ export const Explore = () => {
   const debouncedSearch = useDebounce(searchQuery, 500);
   const { data: searchedPosts, isFetching: isSearchFetching } =
     useSearchPosts(debouncedSearch);
-  const { data: posts, fetchNextPage, hasNextPage } = useGetPosts();
-  console.log(posts);
+  const { data, fetchNextPage, hasNextPage } = useGetPosts();
+  const posts = data as IGetPostsData;
 
   if (!posts)
     return (
@@ -24,9 +25,9 @@ export const Explore = () => {
       </div>
     );
 
-  // const shouldShowSearchResults = !!searchQuery;
-  // const shouldShowPosts =
-  //   !searchQuery && posts?.pages.every((item) => item?.documents.length === 0);
+  const shouldShowSearchResults = !!searchQuery;
+  const shouldShowPosts =
+    !searchQuery && posts?.pages.every((item) => item?.documents.length === 0);
 
   const handleSearch = (e: React.ChangeEvent<HTMLInputElement>) => {
     setSearchQuery(e.target.value);
@@ -55,7 +56,7 @@ export const Explore = () => {
           </div>
         </div>
 
-        {/* <div className="flex flex-wrap gap-9 max-w-5xl">
+        <div className="flex flex-wrap gap-9 max-w-5xl">
           {shouldShowSearchResults ? (
             <SearchResults
               isSearchFetching={isSearchFetching}
@@ -70,7 +71,7 @@ export const Explore = () => {
               <GridPostList key={`page-${index}`} posts={item?.documents} />
             ))
           )}
-        </div> */}
+        </div>
 
         {/* {hasNextPage && !searchQuery && (
           <div ref={ref} className="mt-10">
