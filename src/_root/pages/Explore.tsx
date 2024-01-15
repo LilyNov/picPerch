@@ -1,3 +1,5 @@
+import { useState } from "react";
+import { useInView } from "react-intersection-observer";
 import { GridPostList, SearchResults } from "@/components/modules/explorePage";
 import { Input } from "@/components/ui/input";
 import useDebounce from "@/hooks/useDebounce";
@@ -6,15 +8,17 @@ import {
   useGetPosts,
   useSearchPosts,
 } from "@/lib/react-query/queriesAndMutations";
-import { Loader } from "lucide-react";
-import { useState } from "react";
+import { Loader } from "@/components/shared/Loader";
 
 export const Explore = () => {
-  //  const { ref, inView } = useInView();
+  const { ref, inView } = useInView();
+
   const [searchQuery, setSearchQuery] = useState("");
+
   const debouncedSearch = useDebounce(searchQuery, 500);
   const { data: searchedPosts, isFetching: isSearchFetching } =
     useSearchPosts(debouncedSearch);
+
   const { data, fetchNextPage, hasNextPage } = useGetPosts();
   const posts = data as IGetPostsData;
 
@@ -73,11 +77,11 @@ export const Explore = () => {
           )}
         </div>
 
-        {/* {hasNextPage && !searchQuery && (
+        {hasNextPage && !searchQuery && (
           <div ref={ref} className="mt-10">
             <Loader />
           </div>
-        )} */}
+        )}
       </div>
     </div>
   );

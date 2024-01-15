@@ -1,3 +1,4 @@
+import { IPost } from "@/types/types";
 import { Models } from "appwrite";
 
 export interface SearchResultsProps {
@@ -6,5 +7,5 @@ export interface SearchResultsProps {
 }
 
 export interface GridPostListProps {
-  posts?: Models.Document[];
+  posts?: IPost[];
 }
