@@ -2,9 +2,9 @@ import { useEffect } from "react";
 import { Link, useNavigate, useLocation } from "react-router-dom";
 import { useUserContext } from "@/context/AuthContext";
 import { useSignOutAccount } from "@/lib/react-query/queriesAndMutations";
-import { Button } from "../ui/button";
-import { MenuLinks } from "./MenuLinks";
-import { Logo } from "./Logo";
+import { Button } from "../../ui/button";
+import { MenuLinks } from "../../shared/MenuLinks";
+import { Logo } from "../../shared/Logo";
 import { sidebarLinks } from "@/constants/constants";
 
 export const LeftSidebar = () => {

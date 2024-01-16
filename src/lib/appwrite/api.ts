@@ -123,14 +123,14 @@ export const createPost = async (post: INewPost) => {
     // Upload file to appwrite storage
     const uploadedFile = await uploadFile(post.file[0]);
 
-    if (!uploadedFile) throw Error;
+    if (!uploadedFile) throw Error("Failed to create post");
 
     // Get file url
     const fileUrl = getFilePreview(uploadedFile.$id);
 
     if (!fileUrl) {
       await deleteFile(uploadedFile.$id);
-      throw Error;
+      throw Error("Failed to create post");
     }
 
     // Convert tags into an array
@@ -155,7 +155,7 @@ export const createPost = async (post: INewPost) => {
 
     if (!newPost) {
       await deleteFile(uploadedFile.$id);
-      throw Error;
+      throw Error("Failed");
     }
 
     return newPost;
@@ -210,7 +210,7 @@ export const deleteFile = async (fileId: string) => {
   }
 };
 
-// * GET POSTS
+// * GET RECENT POSTS
 
 export const getRecentPosts = async () => {
   try {
@@ -378,6 +378,46 @@ export const deletePost = async (postId: string, imageId: string) => {
     await deleteFile(imageId);
 
     return { status: "ok" };
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+// * GET POSTS
+export const getInfinitePosts = async ({ pageParam }: { pageParam: any }) => {
+  const queries: any[] = [Query.orderDesc("$updatedAt"), Query.limit(9)];
+
+  if (pageParam) {
+    queries.push(Query.cursorAfter(pageParam.toString()));
+  }
+
+  try {
+    const posts = await databases.listDocuments(
+      appwriteConfig.databaseId,
+      appwriteConfig.postCollectionId,
+      queries
+    );
+
+    if (!posts) throw Error("Failed to fetch posts");
+
+    return posts;
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+// * SEARCH POSTS
+export const searchPosts = async (searchQuery: string) => {
+  try {
+    const posts = await databases.listDocuments(
+      appwriteConfig.databaseId,
+      appwriteConfig.postCollectionId,
+      [Query.search("caption", searchQuery)]
+    );
+
+    if (!posts) throw Error("Failed to fetch posts");
+
+    return posts;
   } catch (error) {
     console.log(error);
   }

@@ -1,6 +1,6 @@
 import { useNavigate, useLocation } from "react-router-dom";
 import { bottomBarLinks } from "@/constants/constants";
-import { MenuLinks } from "./MenuLinks";
+import { MenuLinks } from "../../shared/MenuLinks";
 
 export const BottomBar = () => {
   const navigate = useNavigate();
