@@ -25,7 +25,6 @@ export const CreateEditPost = () => {
           />
           <h2 className="h3-bold md:h2-bold text-left w-full">{`${mode} Post`}</h2>
         </div>
-
         <PostForm mode={mode} {...(isEditPage ? { post } : {})} />
       </div>
     </div>

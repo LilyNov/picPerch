@@ -1,0 +1,1 @@
+export { PostCardWithInfo } from "./PostCardWithInfo";

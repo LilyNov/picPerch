@@ -243,7 +243,7 @@
   }
 
   .grid-post_link {
-    @apply flex rounded-[24px] border border-dark-4 overflow-hidden cursor-pointer w-full h-full;
+    @apply flex rounded-[24px] overflow-hidden cursor-pointer w-full h-full;
   }
 
   .grid-post_user {

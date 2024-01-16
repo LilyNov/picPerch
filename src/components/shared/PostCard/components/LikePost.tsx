@@ -3,7 +3,8 @@ import { LikePostProps } from "../postCardTypes";
 import React from "react";
 
 export const LikePost: React.FC<LikePostProps> = React.memo((props) => {
-  const { handleLikePost, likes, userId } = props;
+  const { userId, invertWhite, likes, handleLikePost } = props;
+  const textColor = invertWhite ? "text-off-white" : "";
 
   const currentImg = checkIsLiked(likes, userId)
     ? "/assets/icons/liked.svg"
@@ -17,7 +18,9 @@ export const LikePost: React.FC<LikePostProps> = React.memo((props) => {
         className="w-6 cursor-pointer"
         onClick={handleLikePost}
       />
-      <p className="small-medium lg:base-medium">{likes.length}</p>
+      <p className={`small-medium lg:base-medium ${textColor}`}>
+        {likes.length}
+      </p>
     </div>
   );
 });

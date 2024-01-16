@@ -8,4 +8,7 @@ export interface SearchResultsProps {
 
 export interface GridPostListProps {
   posts?: IPost[];
+  userId?: string;
+  showUser?: boolean;
+  showStats?: boolean;
 }
