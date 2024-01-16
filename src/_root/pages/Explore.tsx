@@ -9,9 +9,11 @@ import {
   useSearchPosts,
 } from "@/lib/react-query/queriesAndMutations";
 import { Loader } from "@/components/shared/Loader";
+import { useUserContext } from "@/context/AuthContext";
 
 export const Explore = () => {
   const { ref, inView } = useInView();
+  const { user } = useUserContext();
 
   const [searchQuery, setSearchQuery] = useState("");
 
@@ -72,7 +74,11 @@ export const Explore = () => {
             </p>
           ) : (
             posts?.pages.map((item, index) => (
-              <GridPostList key={`page-${index}`} posts={item?.documents} />
+              <GridPostList
+                key={`page-${index}`}
+                posts={item?.documents}
+                userId={user.id}
+              />
             ))
           )}
         </div>

@@ -11,7 +11,7 @@ import { LikePost } from "./LikePost";
 import { SavePost } from "./SavePost";
 
 export const PostStats: React.FC<PostStatsProps> = (props) => {
-  const { post, userId } = props;
+  const { post, userId, invertWhite } = props;
 
   const { mutate: likePostM } = useLikePost();
   const { mutate: savePostM, isPending: isSavingPost } = useSavePost();
@@ -63,11 +63,17 @@ export const PostStats: React.FC<PostStatsProps> = (props) => {
 
   return (
     <div className="flex justify-between items-center z-20">
-      <LikePost handleLikePost={handleLikePost} likes={likes} userId={userId} />
+      <LikePost
+        handleLikePost={handleLikePost}
+        likes={likes}
+        userId={userId}
+        invertWhite={invertWhite}
+      />
       <SavePost
         handleSavePost={handleSavePost}
         isSaved={isSaved}
         isLoading={isSavingPost || isDeletingPost}
+        invertWhite={invertWhite}
       />
     </div>
   );
