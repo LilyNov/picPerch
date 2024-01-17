@@ -2,8 +2,8 @@ import { PostForm } from "@/components/forms";
 import { CREATE_MODE, EDIT_MODE } from "@/constants/constants";
 import { useGetPostById } from "@/lib/react-query/queriesAndMutations";
 import { IParams } from "@/types/types";
-import { Loader } from "lucide-react";
 import { useParams } from "react-router-dom";
+import { Loader } from "./Loader";
 
 export const CreateEditPost = () => {
   const { id } = useParams<IParams>();
@@ -12,7 +12,7 @@ export const CreateEditPost = () => {
 
   const { data: post, isPending } = useGetPostById(id, isEditPage);
 
-  if (isPending) return <Loader />;
+  if (isPending && isEditPage) return <Loader />;
 
   return (
     <div className="flex flex-1">

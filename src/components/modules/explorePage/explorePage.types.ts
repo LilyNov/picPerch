@@ -1,9 +1,9 @@
+import { IPageData } from "@/lib/react-query/queries.types";
 import { IPost } from "@/types/types";
-import { Models } from "appwrite";
 
 export interface SearchResultsProps {
   isSearchFetching: boolean;
-  searchedPosts?: Models.DocumentList<Models.Document>;
+  searchedPosts?: IPageData;
 }
 
 export interface GridPostListProps {

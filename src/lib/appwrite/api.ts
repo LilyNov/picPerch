@@ -384,7 +384,11 @@ export const deletePost = async (postId: string, imageId: string) => {
 };
 
 // * GET POSTS
-export const getInfinitePosts = async ({ pageParam }: { pageParam: any }) => {
+export const getInfinitePosts = async ({
+  pageParam,
+}: {
+  pageParam: string | null;
+}) => {
   const queries: any[] = [Query.orderDesc("$updatedAt"), Query.limit(9)];
 
   if (pageParam) {
