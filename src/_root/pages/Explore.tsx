@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useInView } from "react-intersection-observer";
 import { GridPostList, SearchResults } from "@/components/modules/explorePage";
 import { Input } from "@/components/ui/input";
@@ -24,6 +24,12 @@ export const Explore = () => {
   const { data, fetchNextPage, hasNextPage } = useGetPosts();
   const posts = data as IGetPostsData;
   const searchedPosts = searched as IPageData;
+
+  useEffect(() => {
+    if (inView && !searchQuery) {
+      fetchNextPage();
+    }
+  }, [inView, searchQuery]);
 
   if (!posts)
     return (
