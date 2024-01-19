@@ -27,7 +27,7 @@ export const createUserAccount = async (user: INewUser) => {
 
     return newUser;
   } catch (error) {
-    return Promise.reject(error);
+    return error;
   }
 };
 
@@ -185,8 +185,8 @@ export const getFilePreview = (fileId: string) => {
       appwriteConfig.storageId,
       fileId,
       2000, //width
-      3000, //hight
-      "center", //gravity
+      2000, //hight
+      "center", //place
       100 //quality
     );
 
@@ -194,7 +194,7 @@ export const getFilePreview = (fileId: string) => {
 
     return fileUrl;
   } catch (error) {
-    return Promise.reject(error);
+    throw Error("Something went wrong");
   }
 };
 
