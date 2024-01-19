@@ -30,7 +30,6 @@ import {
 } from "@/types/types";
 import { QUERY_KEYS } from "./query-keys";
 import { Models } from "appwrite";
-import { IGetPostsData } from "./queries.types";
 
 // * create a new User (sign up)
 export const useCreateUserAccount = () => {
@@ -188,17 +187,20 @@ export const useDeletePost = () => {
 
 // * get Posts
 export const useGetPosts = () => {
-  return useInfiniteQuery<IGetPostsData, Error>({
+  return useInfiniteQuery({
     queryKey: [QUERY_KEYS.GET_INFINITE_POSTS],
     queryFn: getInfinitePosts,
-    getNextPageParam: (lastPage: any) => {
+    getNextPageParam: (lastPage?: Models.DocumentList<Models.Document>) => {
       // If there's no data, there are no more pages.
-      if (lastPage && lastPage.documents.length === 0) return null;
-
-      // Use the $id of the last document as the cursor.
-      const lastId = lastPage.documents[lastPage.documents.length - 1].$id;
-      return lastId;
+      if (lastPage) {
+        if (lastPage.documents.length === 0) return null;
+        // Use the $id of the last document as the cursor.
+        const lastId = lastPage.documents[lastPage.documents.length - 1].$id;
+        return lastId;
+      }
+      return;
     },
+    initialPageParam: null,
   });
 };
 

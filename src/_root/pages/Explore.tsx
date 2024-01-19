@@ -1,9 +1,9 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useInView } from "react-intersection-observer";
 import { GridPostList, SearchResults } from "@/components/modules/explorePage";
 import { Input } from "@/components/ui/input";
 import useDebounce from "@/hooks/useDebounce";
-import { IGetPostsData } from "@/lib/react-query/queries.types";
+import { IGetPostsData, IPageData } from "@/lib/react-query/queries.types";
 import {
   useGetPosts,
   useSearchPosts,
@@ -18,11 +18,18 @@ export const Explore = () => {
   const [searchQuery, setSearchQuery] = useState("");
 
   const debouncedSearch = useDebounce(searchQuery, 500);
-  const { data: searchedPosts, isFetching: isSearchFetching } =
+  const { data: searched, isFetching: isSearchFetching } =
     useSearchPosts(debouncedSearch);
 
   const { data, fetchNextPage, hasNextPage } = useGetPosts();
   const posts = data as IGetPostsData;
+  const searchedPosts = searched as IPageData;
+
+  useEffect(() => {
+    if (inView && !searchQuery) {
+      fetchNextPage();
+    }
+  }, [inView, searchQuery]);
 
   if (!posts)
     return (

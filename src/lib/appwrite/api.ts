@@ -27,7 +27,6 @@ export const createUserAccount = async (user: INewUser) => {
 
     return newUser;
   } catch (error) {
-    console.log(error);
     return error;
   }
 };
@@ -50,7 +49,7 @@ export const saveUserToDB = async (user: {
     );
     return newUser;
   } catch (error) {
-    console.log(error);
+    return Promise.reject(error);
   }
 };
 
@@ -64,7 +63,7 @@ export const signInAccount = async (user: {
 
     return session;
   } catch (error) {
-    console.log(error);
+    return Promise.reject(error);
   }
 };
 
@@ -77,7 +76,7 @@ export const signOutAccount = async () => {
 
     return session;
   } catch (error) {
-    console.log(error);
+    return Promise.reject(error);
   }
 };
 
@@ -90,7 +89,7 @@ export const getAccount = async () => {
 
     return currentAccount;
   } catch (error) {
-    console.log(error);
+    return Promise.reject(error);
   }
 };
 
@@ -111,7 +110,7 @@ export const getCurrentUser = async () => {
 
     return (await currentUser).documents[0];
   } catch (error) {
-    console.log(error);
+    return Promise.reject(error);
   }
 };
 
@@ -160,7 +159,7 @@ export const createPost = async (post: INewPost) => {
 
     return newPost;
   } catch (error) {
-    console.log(error);
+    return Promise.reject(error);
   }
 };
 
@@ -175,7 +174,7 @@ export const uploadFile = async (file: File) => {
 
     return uploadedFile;
   } catch (error) {
-    console.log(error);
+    return Promise.reject(error);
   }
 };
 
@@ -187,7 +186,7 @@ export const getFilePreview = (fileId: string) => {
       fileId,
       2000, //width
       2000, //hight
-      "top", //place
+      "center", //place
       100 //quality
     );
 
@@ -195,7 +194,7 @@ export const getFilePreview = (fileId: string) => {
 
     return fileUrl;
   } catch (error) {
-    console.log(error);
+    throw Error("Something went wrong");
   }
 };
 
@@ -206,7 +205,7 @@ export const deleteFile = async (fileId: string) => {
 
     return { status: "ok" };
   } catch (error) {
-    console.log(error);
+    return Promise.reject(error);
   }
 };
 
@@ -224,7 +223,7 @@ export const getRecentPosts = async () => {
 
     return posts;
   } catch (error) {
-    console.log(error);
+    return Promise.reject(error);
   }
 };
 
@@ -246,7 +245,7 @@ export const likePost = async (postId: string, likesArray: string[]) => {
 
     return updatedPost;
   } catch (error) {
-    console.log(error);
+    return Promise.reject(error);
   }
 };
 
@@ -267,7 +266,7 @@ export const savePost = async (postId: string, userId: string) => {
 
     return updatedPost;
   } catch (error) {
-    console.log(error);
+    return Promise.reject(error);
   }
 };
 
@@ -284,7 +283,7 @@ export const deleteSavedPost = async (savedPostId: string) => {
 
     return { status: "ok" };
   } catch (error) {
-    console.log(error);
+    return Promise.reject(error);
   }
 };
 
@@ -302,7 +301,7 @@ export const getPostById = async (postId: string) => {
 
     return post;
   } catch (error) {
-    console.log(error);
+    return Promise.reject(error);
   }
 };
 
@@ -359,7 +358,7 @@ export const updatePost = async (post: IUpdatePost) => {
 
     return updatedPost;
   } catch (error) {
-    console.log(error);
+    return Promise.reject(error);
   }
 };
 
@@ -379,12 +378,16 @@ export const deletePost = async (postId: string, imageId: string) => {
 
     return { status: "ok" };
   } catch (error) {
-    console.log(error);
+    return Promise.reject(error);
   }
 };
 
 // * GET POSTS
-export const getInfinitePosts = async ({ pageParam }: { pageParam: any }) => {
+export const getInfinitePosts = async ({
+  pageParam,
+}: {
+  pageParam: string | null;
+}) => {
   const queries: any[] = [Query.orderDesc("$updatedAt"), Query.limit(9)];
 
   if (pageParam) {
@@ -402,7 +405,7 @@ export const getInfinitePosts = async ({ pageParam }: { pageParam: any }) => {
 
     return posts;
   } catch (error) {
-    console.log(error);
+    return Promise.reject(error);
   }
 };
 
@@ -419,6 +422,6 @@ export const searchPosts = async (searchQuery: string) => {
 
     return posts;
   } catch (error) {
-    console.log(error);
+    return Promise.reject(error);
   }
 };

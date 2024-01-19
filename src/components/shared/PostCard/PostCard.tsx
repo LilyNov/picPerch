@@ -6,7 +6,6 @@ import { isCurrentUserCreator } from "@/helpers/helpers";
 
 export const PostCard: React.FC<PostCardProps> = ({ post }) => {
   const { user } = useUserContext();
-  console.log("Add skeleton image if something wrong with image ");
 
   return (
     <div className="post-card">
