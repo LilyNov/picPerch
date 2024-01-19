@@ -52,7 +52,7 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
 
       return false;
     } catch (error) {
-      console.error(error);
+      throw Error("Something went wrong");
       return false;
     } finally {
       setIsLoading(false);
