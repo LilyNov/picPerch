@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { FC, useEffect, useState } from "react";
 import { useInView } from "react-intersection-observer";
 import { GridPostList, SearchResults } from "@/components/modules/explorePage";
 import { Input } from "@/components/ui/input";
@@ -11,7 +11,7 @@ import {
 import { Loader } from "@/components/shared/Loader";
 import { useUserContext } from "@/context/AuthContext";
 
-export const Explore = () => {
+const Explore = () => {
   const { ref, inView } = useInView();
   const { user } = useUserContext();
 
@@ -99,3 +99,5 @@ export const Explore = () => {
     </div>
   );
 };
+
+export default Explore;
