@@ -1,6 +1,7 @@
+import { FC, LazyExoticComponent, ReactNode } from "react";
+
 import { CREATE_MODE, EDIT_MODE } from "@/constants/constants";
 import { Models } from "appwrite";
-import React from "react";
 
 export type Mode = typeof CREATE_MODE | typeof EDIT_MODE;
 

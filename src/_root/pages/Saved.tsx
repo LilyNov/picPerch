@@ -1,5 +1,5 @@
-import React from "react";
-
-export const Saved = () => {
+const Saved = () => {
   return <div>Saved</div>;
 };
+
+export default Saved;

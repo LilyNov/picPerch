@@ -1,5 +1,5 @@
-import React from "react";
-
-export const UpdateProfile = () => {
-  return <div>UpdateProfile</div>;
+const UpdateProfile = () => {
+  return <div>: React.FC</div>;
 };
+
+export default UpdateProfile;

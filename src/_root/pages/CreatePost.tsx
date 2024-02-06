@@ -1,5 +1,7 @@
 import { CreateEditPost } from "@/components/shared/CreateEditPost";
 
-export const CreatePost = () => {
+const CreatePost = () => {
   return <CreateEditPost />;
 };
+
+export default CreatePost;

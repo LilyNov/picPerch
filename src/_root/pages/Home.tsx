@@ -3,7 +3,7 @@ import { PostCard } from "@/components/shared/PostCard";
 import { useGetRecentPosts } from "@/lib/react-query/queriesAndMutations";
 import { IPost } from "@/types/types";
 
-export const Home = () => {
+const Home = () => {
   const { data, isPending, isError } = useGetRecentPosts();
   const posts = data?.documents || [];
 
@@ -23,3 +23,5 @@ export const Home = () => {
     </div>
   );
 };
+
+export default Home;

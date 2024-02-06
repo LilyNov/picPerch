@@ -14,7 +14,7 @@ import {
 import { IParams, IPost } from "@/types/types";
 import { Link, useNavigate, useParams } from "react-router-dom";
 
-export const PostDetails = () => {
+const PostDetails = () => {
   const navigate = useNavigate();
   const { id } = useParams<IParams>();
   const { user } = useUserContext();
@@ -81,3 +81,5 @@ export const PostDetails = () => {
     </div>
   );
 };
+
+export default PostDetails;
