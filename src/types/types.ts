@@ -3,6 +3,14 @@ import { Models } from "appwrite";
 import React from "react";
 
 export type Mode = typeof CREATE_MODE | typeof EDIT_MODE;
+type FieldName = "name" | "username" | "email" | "password";
+type InputType = "text" | "email" | "password";
+
+export interface IFormField {
+  name: FieldName;
+  label: string;
+  inputType: InputType;
+}
 
 export type IParams = {
   id: string;

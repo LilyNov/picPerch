@@ -24,6 +24,7 @@ import {
 } from "@/lib/react-query/queriesAndMutations";
 import { useUserContext } from "@/context/AuthContext";
 import { Logo } from "@/components/shared/Logo";
+import { IFormField } from "@/types/types";
 
 export const SignUpForm = () => {
   const { toast } = useToast();
@@ -34,6 +35,29 @@ export const SignUpForm = () => {
   const { mutateAsync: createUserAccount, isPending: isCreateAccountLoading } =
     useCreateUserAccount();
   const { mutateAsync: signInAccount } = useSignInAccount();
+
+  const formFields: IFormField[] = [
+    {
+      name: "name",
+      label: "Name",
+      inputType: "text",
+    },
+    {
+      name: "username",
+      label: "Username",
+      inputType: "text",
+    },
+    {
+      name: "email",
+      label: "Email",
+      inputType: "email",
+    },
+    {
+      name: "password",
+      label: "Password",
+      inputType: "password",
+    },
+  ];
 
   // 1. Define the form
   const form = useForm<z.infer<typeof SignUpValidationSchema>>({
@@ -89,58 +113,25 @@ export const SignUpForm = () => {
         <form
           onSubmit={form.handleSubmit(onSubmit)}
           className="flex flex-col w-full mt-4">
-          <FormField
-            control={form.control}
-            name="name"
-            render={({ field }) => (
-              <FormItem>
-                <FormLabel>Name</FormLabel>
-                <FormControl>
-                  <Input type="text" className="shad-input" {...field} />
-                </FormControl>
-                <FormMessage />
-              </FormItem>
-            )}
-          />
-          <FormField
-            control={form.control}
-            name="username"
-            render={({ field }) => (
-              <FormItem className="mt-4">
-                <FormLabel>Username</FormLabel>
-                <FormControl>
-                  <Input type="text" className="shad-input" {...field} />
-                </FormControl>
-                <FormMessage />
-              </FormItem>
-            )}
-          />
-          <FormField
-            control={form.control}
-            name="email"
-            render={({ field }) => (
-              <FormItem className="mt-4">
-                <FormLabel>Email</FormLabel>
-                <FormControl>
-                  <Input type="email" className="shad-input" {...field} />
-                </FormControl>
-                <FormMessage />
-              </FormItem>
-            )}
-          />
-          <FormField
-            control={form.control}
-            name="password"
-            render={({ field }) => (
-              <FormItem className="mt-4">
-                <FormLabel>Password</FormLabel>
-                <FormControl>
-                  <Input type="password" className="shad-input" {...field} />
-                </FormControl>
-                <FormMessage />
-              </FormItem>
-            )}
-          />
+          {formFields.map(({ name, label, inputType }) => (
+            <FormField
+              control={form.control}
+              name={name}
+              render={({ field }) => (
+                <FormItem className="mt-4">
+                  <FormLabel>{label}</FormLabel>
+                  <FormControl>
+                    <Input
+                      type={inputType}
+                      className="shad-input mb-2"
+                      {...field}
+                    />
+                  </FormControl>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+          ))}
 
           <Button
             type="submit"
