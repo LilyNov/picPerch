@@ -8,8 +8,8 @@ import {
   useGetPosts,
   useSearchPosts,
 } from "@/lib/react-query/queriesAndMutations";
-import { Loader } from "@/components/shared/Loader";
 import { useUserContext } from "@/context/AuthContext";
+import { Loader } from "@/components/shared/PostCard/Loader";
 
 export const Explore = () => {
   const { ref, inView } = useInView();

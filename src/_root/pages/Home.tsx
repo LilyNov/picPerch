@@ -1,5 +1,5 @@
-import { Loader } from "@/components/shared/Loader";
 import { PostCard } from "@/components/shared/PostCard";
+import { Loader } from "@/components/shared/PostCard/Loader";
 import { useGetRecentPosts } from "@/lib/react-query/queriesAndMutations";
 import { IPost } from "@/types/types";
 

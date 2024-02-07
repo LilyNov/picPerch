@@ -17,10 +17,10 @@ import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 
 import { SigInpValidationSchema } from "@/lib/validation/validation";
-import { Loader } from "@/components/shared/Loader";
 import { useSignInAccount } from "@/lib/react-query/queriesAndMutations";
 import { useUserContext } from "@/context/AuthContext";
 import { Logo } from "@/components/shared/Logo";
+import { Loader } from "@/components/shared/PostCard/Loader";
 
 export const SignInForm = () => {
   const { toast } = useToast();

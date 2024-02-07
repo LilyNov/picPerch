@@ -17,7 +17,6 @@ import { Input } from "@/components/ui/input";
 
 import { Button } from "@/components/ui/button";
 import { SignUpValidationSchema } from "@/lib/validation/validation";
-import { Loader } from "@/components/shared/Loader";
 import {
   useCreateUserAccount,
   useSignInAccount,
@@ -25,6 +24,7 @@ import {
 import { useUserContext } from "@/context/AuthContext";
 import { Logo } from "@/components/shared/Logo";
 import { IFormField } from "@/types/types";
+import { Loader } from "@/components/shared/PostCard/Loader";
 
 export const SignUpForm = () => {
   const { toast } = useToast();
