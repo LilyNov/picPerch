@@ -4,6 +4,14 @@ import { CREATE_MODE, EDIT_MODE } from "@/constants/constants";
 import { Models } from "appwrite";
 
 export type Mode = typeof CREATE_MODE | typeof EDIT_MODE;
+type FieldName = "name" | "username" | "email" | "password";
+type InputType = "text" | "email" | "password";
+
+export interface IFormField {
+  name: FieldName;
+  label: string;
+  inputType: InputType;
+}
 
 export type IParams = {
   id: string;

@@ -3,7 +3,7 @@ import { CREATE_MODE, EDIT_MODE } from "@/constants/constants";
 import { useGetPostById } from "@/lib/react-query/queriesAndMutations";
 import { IParams } from "@/types/types";
 import { useParams } from "react-router-dom";
-import { Loader } from "./Loader";
+import { Loader } from "./PostCard/Loader";
 
 export const CreateEditPost = () => {
   const { id } = useParams<IParams>();

@@ -4,6 +4,8 @@ import React from "react";
 
 export const LikePost: React.FC<LikePostProps> = React.memo((props) => {
   const { userId, invertWhite, likes, handleLikePost } = props;
+
+  const iconColor = invertWhite ? "invert - white" : "";
   const textColor = invertWhite ? "text-off-white" : "";
 
   const currentImg = checkIsLiked(likes, userId)
@@ -15,7 +17,7 @@ export const LikePost: React.FC<LikePostProps> = React.memo((props) => {
       <img
         src={currentImg}
         alt="like"
-        className="w-6 cursor-pointer"
+        className={`w-6 cursor-pointer ${iconColor}`}
         onClick={handleLikePost}
       />
       <p className={`small-medium lg:base-medium ${textColor}`}>
