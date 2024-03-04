@@ -4,7 +4,7 @@ import { useGetRecentPosts } from "@/lib/react-query/queriesAndMutations";
 import { IPost } from "@/types/types";
 
 const Home = () => {
-  const { data, isPending, isError } = useGetRecentPosts();
+  const { data, isPending } = useGetRecentPosts();
   const posts = data?.documents || [];
 
   return (
