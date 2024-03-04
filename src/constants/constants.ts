@@ -51,3 +51,14 @@ export const bottomBarLinks = [
 
 export const CREATE_MODE = "Create";
 export const EDIT_MODE = "Edit";
+
+export const validPhotoExtensions = [
+  "jpg",
+  "jpeg",
+  "jp2",
+  "tiff",
+  "png",
+  "svg",
+  "svg+xml", // browser svg type name
+  "bmp",
+];

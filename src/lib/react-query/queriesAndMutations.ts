@@ -105,7 +105,10 @@ export const useSavePost = () => {
 
   return useMutation({
     mutationFn: ({ postId, userId }: ISavePost) => savePost(postId, userId),
-    onSuccess: () => {
+    onSuccess: (data) => {
+      queryClient.invalidateQueries({
+        queryKey: [QUERY_KEYS.GET_POST_BY_ID, data?.$id],
+      });
       queryClient.invalidateQueries({
         queryKey: [QUERY_KEYS.GET_RECENT_POSTS],
       });

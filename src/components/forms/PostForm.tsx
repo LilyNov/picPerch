@@ -25,8 +25,8 @@ import {
 import { useUserContext } from "@/context/AuthContext";
 import { useToast } from "../ui/use-toast";
 import { useNavigate } from "react-router-dom";
-import { Loader } from "../shared/Loader";
 import { EDIT_MODE } from "@/constants/constants";
+import { Loader } from "../shared/PostCard/Loader";
 
 export const PostForm: React.FC<PostFormProps> = ({ mode, post }) => {
   const { user } = useUserContext();
@@ -41,8 +41,6 @@ export const PostForm: React.FC<PostFormProps> = ({ mode, post }) => {
   const buttonText = isEditMode ? "Save" : "Create";
   const labelText = isEditMode ? "Edit" : "Add";
   const isEditing = isEditMode && post;
-
-  // if (isEditMode && !post) return <Loader />;
 
   // 1. Define the form.
   const form = useForm<z.infer<typeof PostFormValidationSchema>>({
