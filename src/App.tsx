@@ -19,7 +19,7 @@ import { AuthLayout } from "./_auth/AuthLayout";
 import { RootLayout } from "./_root/RootLayout";
 import { Toaster } from "@/components/ui/toaster";
 import { NoMatch } from "./_root/pages/NoMatch";
-import { Loader } from "./components/shared/Loader";
+import { Loader } from "./components/shared/PostCard/Loader";
 
 export const App = () => {
   return (
